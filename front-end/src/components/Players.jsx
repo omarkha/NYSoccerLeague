@@ -4,7 +4,7 @@ import DropMenu from "./DropMenu";
 import Button from "./Button";
 import Result from "./Result";
 
-const Search = () => {
+const Players = () => {
     const teams = ['FC New Paltz',
         'FC Poughkeepsie',
         'FC Woodstock',
@@ -58,7 +58,8 @@ const Search = () => {
                 <Textbox />
                 <label> Club </label>
                 <DropMenu value={teams} />
-                
+                <Button text="Search" />
+                <Button text="Add" />
             </div>
             <div className="input-area-2">
                 <label> Position </label>
@@ -73,8 +74,8 @@ const Search = () => {
                <Textbox />
                 <label> Phone </label>
                 <Textbox />
-                <Button text="Search" />
                 <Button text="Update" />
+                <Button text="Delete" />
             </div>
         </div>
         <div class="results">
@@ -86,4 +87,4 @@ const Search = () => {
     )
 }
 
-export default Search;
+export default Players;

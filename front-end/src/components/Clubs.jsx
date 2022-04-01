@@ -1,4 +1,5 @@
 import React from "react";
+import Club from "./Club";
 
 const Clubs = () => {
     return (
@@ -17,7 +18,7 @@ const Clubs = () => {
                 <button class="club-input-button">Delete</button>
             </div>
             <div class="results">
-
+                <Club clubname="FC Barcelona" clubcity="Barcelona" clubmanager="Xavi" />
             </div>
         </div>
 
