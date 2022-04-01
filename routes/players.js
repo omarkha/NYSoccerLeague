@@ -41,4 +41,11 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id').get((req, res => {
+    Player.findById(req.params.id)
+    .then()
+    .catch(error => res.status(400).json('Error: ' + error));
+}));
+
+
 module.exports = router;
