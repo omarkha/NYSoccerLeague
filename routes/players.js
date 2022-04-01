@@ -43,9 +43,33 @@ router.route('/add').post((req, res) => {
 
 router.route('/:id').get((req, res => {
     Player.findById(req.params.id)
-    .then()
+    .then(() => res.json(player))
     .catch(error => res.status(400).json('Error: ' + error));
 }));
 
+router.route('/:id').delete((req, res => {
+    Player.findById(req.params.id)
+    .then(() => res.json('player deleted!'))
+    .catch(error => res.status(400).json('Error: ' + error));
+}));
+
+router.route('update/:id').post((req, res => {
+    Player.findById(req.params.id)
+    .then(player => {
+        player.firstname = req.body.firstname;
+        player.lastname = req.body.lastname;
+        player.county = req.body.county;
+        player.city = req.body.city;
+        player.club = req.body.club;
+        player.foot = req.body.foot;
+        player.age = Number(req.body.age);
+        player.weight = req.body.weight;
+        player.height = req.body.height;
+        player.position = req.body.position;
+        player.email = req.body.email;
+        player.phone = req.body.phone;
+    })
+    .catch(error => res.status(400).json('Error: ' + error));
+}));
 
 module.exports = router;
