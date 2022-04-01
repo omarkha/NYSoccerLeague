@@ -41,25 +41,41 @@ const Players = () => {
        '203 lb','204 lb','205 lb','206 lb','207 lb','208 lb','209 lb','210 lb','211 lb','212 lb','213 lb','214 lb','215 lb','216 lb','217 lb','218 lb','219 lb',
        '220 lb'];
 
+       const [data, setData] = useState({
+        firstname: '',
+        lastname: '',
+        position: '',
+        club: '',
+        foot: '',
+        county: '',
+        city: '',
+        age: 0,
+        height: '',
+        weight: '',
+        email: '',
+        phone: '',
+    });
+
+
 
     return (
         <div class="main">
             <div className="input-area">
                 <div className="input-area-1">
                 <label> First Name </label>
-                <Textbox />
+                <input type="text" id="firstname" />
                 <label> Last Name </label>
-                <Textbox />
+                <input type="text" id="firstname" />
                <label> Age </label>
-               <Textbox />
+               <input type="text" id="firstname" />
                <label> County </label>
-               <Textbox />
+               <input type="text" id="firstname" />
                 <label> City </label>
-                <Textbox />
+                <input type="text" id="firstname" />
                 <label> Club </label>
                 <DropMenu value={teams} />
-                <Button text="Search" />
-                <Button text="Add" />
+                <button>Search</button>
+                <button>Add</button>
             </div>
             <div className="input-area-2">
                 <label> Position </label>
@@ -71,11 +87,11 @@ const Players = () => {
                 <label> Weight </label>
                 <DropMenu value={weight} />
                 <label> Email </label>
-               <Textbox />
+               <input type="text" id="firstname" />
                 <label> Phone </label>
-                <Textbox />
-                <Button text="Update" />
-                <Button text="Delete" />
+                <input type="text" id="firstname" />
+                <button>Update</button>
+                <button>Delete</button>
             </div>
         </div>
         <div class="results">

@@ -5,7 +5,20 @@ import Button from "./Button";
 
 const InputArea = () => {
 
-  
+    const [data, setData] = useState({
+        firstname: '',
+        lastname: '',
+        position: '',
+        club: '',
+        foot: '',
+        county: '',
+        city: '',
+        age: 0,
+        height: '',
+        weight: '',
+        email: '',
+        phone: '',
+    });
 
     const team = ['FC New Paltz',
         'FC Poughkeepsie',

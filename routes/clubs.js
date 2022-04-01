@@ -8,6 +8,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
+    console.log(req.body);
     const name = req.body.name;
 
     const newClub = new Club({

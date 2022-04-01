@@ -2,6 +2,11 @@ import React from "react";
 import Button from "./Button";
 
 const Result = (props) => {
+
+    const onModify = () => {
+
+    }
+    
     return (
         <div class="result">
             <h3>{props.firstname} {props.lastname}</h3>
@@ -10,7 +15,7 @@ const Result = (props) => {
             {props.weight} | {props.county} | {props.city} <br/>
             {props.email} <br/>
             {props.phone}</p>
-            <Button text="modify" />
+            <button>Modify</button>
         </div>
     )
 }

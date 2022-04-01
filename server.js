@@ -5,8 +5,6 @@ const db = require('./db');
 
 const PORT = process.env.PORT || 3001
 
-mongoose.connect(PORT);
-
 const app = express();
 
 
@@ -20,14 +18,19 @@ connection.once('open', () => {
   console.log("MongoDB connected successfully");
 })
 
-const playerRouter = require('./routes/players');
-const clubRouter = require('./routes/clubs');
 
-app.use('/clubs', clubRouter);
-app.use('/players', playerRouter);
+
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+
+const playerRouter = require('./routes/players');
+const clubRouter = require('./routes/clubs');
+
+
+app.use('/clubs', clubRouter);
+app.use('/players', playerRouter);
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
