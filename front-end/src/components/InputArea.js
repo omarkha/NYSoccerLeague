@@ -5,30 +5,9 @@ import Button from "./Button";
 
 const InputArea = () => {
 
-    const [data, setData] = useState({
-        firstname: '',
-        lastname: '',
-        age: 0,
-        club: '',
-        county: '',
-        city: '',
-        position: '',
-        foot: '',
-        height: '',
-        weight: '',
-        email: '',
-        phone: ''
-    });
+  
 
-
-
-    const onAddData = () => {
-        setData(
-            
-        );
-    };
-
-    const teams = ['FC New Paltz',
+    const team = ['FC New Paltz',
         'FC Poughkeepsie',
         'FC Woodstock',
         'FC Kingston Knights',
@@ -45,7 +24,7 @@ const InputArea = () => {
         'FC Mohonk Climbers',
         'FC Minawaska'];
 
-    const positions = ['GK','LB','CB','RB','CM','CDM','CAM','RM','LM','LW','RW','AM','CF'];
+    const position = ['GK','LB','CB','RB','CM','CDM','CAM','RM','LM','LW','RW','AM','CF'];
 
     const foot = ['Left','Right','Both'];
 
@@ -69,32 +48,32 @@ const InputArea = () => {
         <div className="input-area">
                 <div className="input-area-1">
                 <label> First Name </label>
-                <Textbox />
+                <input type="text" id="firstname" />
                 <label> Last Name </label>
-                <Textbox />
+                <input type="text" id="lastname" />
                <label> Age </label>
-               <Textbox />
+               <input type="text" id="age" />
                <label> County </label>
-               <Textbox />
+               <input type="text" id="county" />
                 <label> City </label>
-                <Textbox />
+                <input type="text" id="city" />
                 <label> Club </label>
-                <DropMenu value={teams} />
+                <DropMenu value={team} />
                 
             </div>
             <div className="input-area-2">
                 <label> Position </label>
-                <DropMenu value={positions} />
+                <DropMenu value={position} id="position" />
                 <label> Strong Foot </label>
-                <DropMenu value={foot} />
+                <DropMenu value={foot} id="foot" />
                 <label> Height </label>
-                <DropMenu value={height} />
+                <DropMenu value={height} id="height" />
                 <label> Weight </label>
-                <DropMenu value={weight} />
+                <DropMenu value={weight} id="weight" />
                 <label> Email </label>
-               <Textbox />
+               <input type="text" id="email" />
                 <label> Phone </label>
-                <Textbox />
+                <input type="text" id="phone" />
                 <Button text="Add Player" />
             </div>
         </div>
