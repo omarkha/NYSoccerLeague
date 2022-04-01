@@ -1,7 +1,6 @@
 import React from "react";
-import Button from "./Button";
 
-const Club = () => {
+const Clubs = () => {
     return (
         <div class="main">
             <div class="club-input">
@@ -11,12 +10,18 @@ const Club = () => {
                 <input type="text" id="clubcity" />
                 <label>Club Manager </label>
                 <input type="text" id="clubmanager" />
-                <Button text="Add" />
-                <Button text="Delete" />
-                <Button text="Update" />
+                
+                <button class="club-input-button">Search</button>
+                <button class="club-input-button">Add</button>
+                <button class="club-input-button">Update</button>
+                <button class="club-input-button">Delete</button>
+            </div>
+            <div class="results">
+
             </div>
         </div>
+
     )
 }
 
-export default Club;
+export default Clubs;

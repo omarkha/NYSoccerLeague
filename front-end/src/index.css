@@ -202,3 +202,12 @@ h4 {
 	color: #fff;
 	letter-spacing: 3px;
 }
+
+.club-input-button {
+	display: block;
+	margin: 13px auto;
+}
+
+.club-input {
+	width: 50%;
+}
