@@ -1,5 +1,5 @@
-const { default: mongoose } = require('mongoose');
-const clubSchema = require('mongoose');
+
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 

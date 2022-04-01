@@ -1,5 +1,4 @@
-const { default: mongoose } = require('mongoose');
-const playerSchema = require('mongoose');
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -17,7 +16,7 @@ const playerSchema = new Schema({
     city: {type: String, required: true},
     email: {type: String, required: true},
     phone: {type: String, required: true},
-    player_id: { type: Schema.Types.ObjectI, ref: 'player_id' }
+    player_id: { type: Schema.Types.ObjectId, ref: 'player_id' }
 }, {timestamps: true});
 
 const Player = mongoose.model('Player', playerSchema);

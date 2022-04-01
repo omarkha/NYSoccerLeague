@@ -41,19 +41,19 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').get((req, res => {
+router.route('/:id').get((req, res) => {
     Player.findById(req.params.id)
-    .then(() => res.json(player))
+    .then(player => res.json(player))
     .catch(error => res.status(400).json('Error: ' + error));
-}));
+});
 
-router.route('/:id').delete((req, res => {
-    Player.findById(req.params.id)
+router.route('/:id').delete((req, res) => {
+    Player.findByIdAndDelete(req.params.id)
     .then(() => res.json('player deleted!'))
     .catch(error => res.status(400).json('Error: ' + error));
-}));
+});
 
-router.route('update/:id').post((req, res => {
+router.route('update/:id').post((req, res) => {
     Player.findById(req.params.id)
     .then(player => {
         player.firstname = req.body.firstname;
@@ -68,8 +68,12 @@ router.route('update/:id').post((req, res => {
         player.position = req.body.position;
         player.email = req.body.email;
         player.phone = req.body.phone;
+
+        player.save()
+        .then(() => {res.json('player updated')})
+        .catch(err => {res.status(400).json('Error: ' + err)})
     })
     .catch(error => res.status(400).json('Error: ' + error));
-}));
+});
 
 module.exports = router;
