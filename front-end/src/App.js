@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import About from './components/About';
 import Search from './components/Search';
+import Club from './components/Club';
 
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={ <Home /> } />
             <Route path="/register" element={ <Register /> } />
+            <Route path="/club" element={ <Club /> } />
             <Route path="/search" element={ <Search /> } />
             <Route path="/about" element={ <About /> } />
           </Routes>
