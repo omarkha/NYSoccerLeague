@@ -1,7 +1,5 @@
 import React from "react";
-import Textbox from "./Textbox";
 import DropMenu from "./DropMenu";
-import Button from "./Button";
 import Result from "./Result";
 
 const Players = () => {
@@ -20,15 +18,15 @@ const Players = () => {
         'FC Real Ellenville',
         'FC Gardner Farmers',
         'FC Mohonk Climbers',
-        'FC Minawaska'];
+        'FC Minawaska'];    
 
     const positions = ['GK','LB','CB','RB','CM','CDM','CAM','RM','LM','LW','RW','AM','CF'];
 
-    const foot = ['Left','Right','Both'];
+    const foots = ['Left','Right','Both'];
 
-    const height = ['4\'8','4\'9','4\'10','4\'11','5\'0','5\'1','5\'2','5\'3','5\'4','5\'5','5\'6','5\'7','5\'8','5\'9','5\'10','5\'11','6\'0','6\'1','6\'2','6\'3','6\'4','6\'5','6\'6','6\'7'];
+    const heights = ['4\'8','4\'9','4\'10','4\'11','5\'0','5\'1','5\'2','5\'3','5\'4','5\'5','5\'6','5\'7','5\'8','5\'9','5\'10','5\'11','6\'0','6\'1','6\'2','6\'3','6\'4','6\'5','6\'6','6\'7'];
 
-    const weight = ['70 lb', '71 lb', '72 lb', '73 lb', '74 lb', '75 lb', '76 lb', '77 lb', '78 lb', '79 lb', '80 lb', '81 lb', '82 lb', 
+    const weights = ['70 lb', '71 lb', '72 lb', '73 lb', '74 lb', '75 lb', '76 lb', '77 lb', '78 lb', '79 lb', '80 lb', '81 lb', '82 lb', 
     '83 lb', '84 lb', '85 lb', '86 lb', '87 lb', '88 lb', '89 lb', '90 lb', '91 lb', '92 lb', '93 lb', '94 lb', '95 lb', '96 lb', '97 lb',
      '98 lb', '99 lb', '100 lb', '101 lb', '102 lb', '103 lb', '104 lb', '105 lb', '106 lb', '107 lb', '108 lb', '109 lb', '110 lb', '111 lb',
       '112 lb', '113 lb', '114 lb', '115 lb', '116 lb', '117 lb', '118 lb', '119 lb', '120 lb', '121 lb', '122 lb', '123 lb', '124 lb', '125 lb',
@@ -56,22 +54,33 @@ const Players = () => {
         phone: '',
     });
 
-
+    const [firstname, setFirstName] = useState('');
+    const [lastname, setLastName] = useState('');
+    const [age, setAge] = useState(0);
+    const [position, setPosition] = useState('');
+    const [foot, setFoot] = useState('');
+    const [club, setClub] = useState('');
+    const [county, setCounty] = useState('');
+    const [city, setCity] = useState('');
+    const [height, setHeight] = useState('');
+    const [weight, setWeight] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
 
     return (
         <div class="main">
             <div className="input-area">
                 <div className="input-area-1">
                 <label> First Name </label>
-                <input type="text" id="firstname" />
+                <input onFirstNameChange={e => setFirstName(e.target.value)} type="text"/>
                 <label> Last Name </label>
-                <input type="text" id="firstname" />
+                <input onLastNameChange={e => setLastName(e.target.value)} type="text" />
                <label> Age </label>
-               <input type="text" id="firstname" />
+               <input onAgeChange={e => setAge(e.target.value)} type="text" />
                <label> County </label>
-               <input type="text" id="firstname" />
+               <input onCountyChange={e => setCounty(e.target.value)} type="text" />
                 <label> City </label>
-                <input type="text" id="firstname" />
+                <input onCityChange={e => setCity(e.target.value)} type="text"  />
                 <label> Club </label>
                 <DropMenu value={teams} />
                 <button>Search</button>
@@ -81,15 +90,15 @@ const Players = () => {
                 <label> Position </label>
                 <DropMenu value={positions} />
                 <label> Strong Foot </label>
-                <DropMenu value={foot} />
+                <DropMenu value={foots} />
                 <label> Height </label>
-                <DropMenu value={height} />
+                <DropMenu value={heights} />
                 <label> Weight </label>
-                <DropMenu value={weight} />
+                <DropMenu value={weights} />
                 <label> Email </label>
-               <input type="text" id="firstname" />
+               <input onEmailChange={e => setEmail(e.target.value)} type="text"  />
                 <label> Phone </label>
-                <input type="text" id="firstname" />
+                <input onPhoneChange={e => setPhone(e.target.value)} type="text" />
                 <button>Update</button>
                 <button>Delete</button>
             </div>
