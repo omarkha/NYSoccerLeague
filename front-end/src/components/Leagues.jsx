@@ -108,11 +108,11 @@ const Leagues = () => {
                     returned.sort();
                 })
                 .catch(err => console.log("Err: ", err))
-            }else if(selectedCounty !== "All Leagues"){
-                axios.get(`http://localhost:3001/leagues/${selectedCounty}`)
+            }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
+                axios.get(`http://localhost:3001/leagues/getone/${selectedCounty}`)
                 .then(res => {
                     setLeagues([res.data]);
-                    setSingleLeague(res.data);
+                    console.log(leagues)
                     console.log(singleLeague)
                 })
                 .catch(err => console.log(err))
@@ -124,6 +124,12 @@ const Leagues = () => {
         const handleRemove = (id) => {
             const newLeagues = leagues.filter(league => league._id != id);
             setLeagues(newLeagues);
+
+            axios.delete(`http://localhost:3001/leagues/${id}`)
+            .then(res => {
+                console.log(" deleted from database: ", id);
+            })
+            .catch(err => console.log(err))
         }
     return (
         <div className="main">

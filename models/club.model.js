@@ -7,7 +7,6 @@ const clubSchema = new Schema({
     name: {type: String, required: true},
     county: {type: String, required: true},
     city: {type: String, required: true},
-    club_id: { type: Schema.Types.ObjectId, ref: 'club_id' }
 
 }, {timestamps: true});
 

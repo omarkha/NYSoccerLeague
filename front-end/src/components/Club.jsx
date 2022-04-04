@@ -1,16 +1,18 @@
 import React from "react";
-import Button from "./Button";
 
-const Club = (props) => {
+const Club = ({handleRemove, clubname, clubcounty, clubcity, id}) => {
     return (
         <div className="result">
-            <h3>{props.clubname}</h3>
-            <p>{props.clubcounty} <br/>
-            {props.clubcity}</p>
+            <h3>{clubname}</h3>
+            <p>{clubcounty} <br/>
+            {clubcity}</p>
             <button>modify</button>
-            <button>remove</button>
+            <button onClick={() => {handleRemove(id, clubcounty, clubcity)}}>remove</button>
         </div>
     )
 }
 
 export default Club;
+
+
+

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Club from "./Club";
 import DropMenu from "./DropMenu";
 import axios from 'axios';
@@ -23,7 +23,9 @@ const Clubs = () => {
 
     const [counties, setCounties] = useState(['']);
 
-    componentDidMount = () => {
+    const [clubs, setClubs] = useState([]);
+
+    const getLeagues = () => {
         axios.get('http://localhost:3001/leagues/')
         .then(response => {
             
@@ -34,22 +36,52 @@ const Clubs = () => {
         .catch(err => console.log("rr: ",err))
     }
 
+    useEffect(getLeagues, []);
+
+    const handleUpdate = () => {
+        console.log('update');
+    }
+
+    const handleDelete = () => {
+        console.log('delete');
+    }
+
+    const handleSearch = () => {
+        getValue();
+            axios.get('http://localhost:3001/clubs/')
+            .then(res => {
+
+                setClubs(res.data);
+                console.log(clubs);
+            })
+            .catch(err => console.log("Err: ", err))
+        
+    }
+
     const getValue = (value, id) =>{
         setCounty(value);
     }
 
     const handleAdd = () => {
 
-        setData(data.name = name, data.county = county, data.city = city);
-
-        const club = data;
+        setData({name: name, county: county, city: city});
 
         console.log(data);
-        axios.post('http://localhost:3001/clubs/add', data)
+        axios.post('http://localhost:3001/clubs', data)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     }
 
+    const handleRemove = (id, county, city) => {
+        const newClubs = clubs.filter(club => club._id != id);
+            setClubs(newClubs);
+
+            axios.delete(`http://localhost:3001/clubs/${id}`)
+            .then(res => {
+                console.log(" deleted from database: ", id);
+            })
+            .catch(err => console.log(err))
+    }
 
     return (
         <div className="main">
@@ -61,13 +93,14 @@ const Clubs = () => {
                 <label>Club City </label>
                 <input value={city} onChange={(e) => setCity(e.target.value)} type="text" id="clubcity" />
                 
-                <button className="club-input-button">Search</button>
+                <button className="club-input-button" onClick={handleSearch}>Search</button>
                 <button className="club-input-button" onClick={handleAdd}>Add</button>
-                <button className="club-input-button">Update</button>
-                <button className="club-input-button">Delete</button>
+                <button className="club-input-button" onClick={handleUpdate}>Update</button>
+                <button className="club-input-button" onClick={handleRemove}>Remove</button>
             </div>
             <div className="results">
-                <Club clubname="FC Barcelona" clubcity="Barcelona" clubcounty="Orange County" />
+                { clubs.map((club) => <Club clubname={club.name} clubcity={club.city} clubcounty={club.county} key={club._id} id={club._id}/>)}
+               
             </div>
         </div>
 

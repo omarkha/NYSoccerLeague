@@ -9,7 +9,7 @@ const League = ({handleRemove, county, id}) => {
 
                     <h3>{county} ASL</h3 >
                     
-                    <button onClick={() => {handleRemove(id)}}>remove</button>
+                    <button onClick={() => {handleRemove(id, county)}}>remove</button>
 
                 </div>
         

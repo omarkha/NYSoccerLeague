@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose')
 const db = require('./db');
 const clubController = require('./controllers/clubControllers.js')
-const { League, Club, Player } = require('./models');
+const { League, Club } = require('./models');
 const morgan = require('morgan');
 
 const PORT = process.env.PORT || 3001
@@ -45,8 +45,39 @@ app.get('/players', async (req, res) => {
 
 app.get('/leagues/:county', async (req, res) => {
   try {
-    const { county } = req.params;
-    const league =  League.find({county: county})
+
+    const county = req.params.county;
+    county.replace("&20", " ");
+    console.log(county);
+    const league = await League.find({county: county_encode})
+    if (!league) throw Error('couty not found')
+    res.json(league)
+  } catch (e) {
+    console.log(e)
+    res.send('county not found!')
+  }
+})
+
+app.delete('/leagues/:id', async (req, res) => {
+  try {
+
+    const id = req.params.id;
+    const league = await League.findByIdAndRemove(id)
+    if (!league) throw Error('couty not found')
+    res.json(league)
+  } catch (e) {
+    console.log(e)
+    res.send('county not found!')
+  }
+})
+
+app.get('/leagues/getone/:county', async (req, res) => {
+  
+  try {
+    const county_encode = req.params.county;
+    county.replace("&20", " ");
+    console.log(county);
+    const league = await League.find({county: county_encode})
     if (!league) throw Error('couty not found')
     res.json(league)
   } catch (e) {
@@ -68,12 +99,11 @@ app.post('/leagues', (req, res) => {
   .catch(err => console.log("error: ", err))
 });
 
-app.post('/players', (req, res) => {
-  const player = new Player(req.body);
-
-  player.save()
+app.post('/clubs', (req, res) => {
+  const club = new Club(req.body);
+  club.save()
   .then((result) => {
-
+console.log("Club added!");
   })
   .catch(err => console.log("error: ", err))
 }
