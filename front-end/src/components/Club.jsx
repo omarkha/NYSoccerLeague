@@ -3,11 +3,12 @@ import Button from "./Button";
 
 const Club = (props) => {
     return (
-        <div class="result">
+        <div className="result">
             <h3>{props.clubname}</h3>
-            <p>{props.clubcity} <br/>
-            {props.clubmanager}</p>
-            <Button text="modify" />
+            <p>{props.clubcounty} <br/>
+            {props.clubcity}</p>
+            <button>modify</button>
+            <button>remove</button>
         </div>
     )
 }

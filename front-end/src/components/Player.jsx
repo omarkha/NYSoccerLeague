@@ -1,14 +1,9 @@
 import React from "react";
-import Button from "./Button";
 
-const Result = (props) => {
+const Player = (props) => {
 
-    const onModify = () => {
-
-    }
-    
     return (
-        <div class="result">
+        <div className="result">
             <h3>{props.firstname} {props.lastname}</h3>
             <p>{props.club} <br/>
             {props.foot} Footed | {props.position} | {props.age} y/o | {props.height} <br/>
@@ -16,8 +11,9 @@ const Result = (props) => {
             {props.email} <br/>
             {props.phone}</p>
             <button>Modify</button>
+            <button>Remove</button>
         </div>
     )
 }
 
-export default Result;
+export default Player;

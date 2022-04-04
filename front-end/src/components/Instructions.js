@@ -3,7 +3,7 @@ import Textbox from "./Textbox";
 
 const Instructions = (props) => {
     return (
-        <div class="instructions">
+        <div className="instructions">
             <h3>Instructions</h3>
             <p>
                 Enter the players information who you wish to enroll in a club. Then click "Add Player" to submit.

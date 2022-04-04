@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header'
 import NavBar from './components/NavBar';
@@ -8,6 +7,7 @@ import Players from './components/Players';
 import Clubs from './components/Clubs';
 
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Leagues from './components/Leagues';
 
 function App() {
   return (
@@ -19,9 +19,10 @@ function App() {
         <div className='content'>
           <Routes>
             <Route exact path="/" element={ <Home /> } />
-            <Route path="/clubs" element={ <Clubs /> } />
-            <Route path="/players" element={ <Players /> } />
-            <Route path="/about" element={ <About /> } />
+            <Route path="/leaguespage" element={ <Leagues /> } />
+            <Route path="/clubspage" element={ <Clubs /> } />
+            <Route path="/playerspage" element={ <Players /> } />
+            <Route path="/aboutpage" element={ <About /> } />
           </Routes>
         </div>
       

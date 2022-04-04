@@ -1,6 +1,9 @@
 import React from "react";
 import DropMenu from "./DropMenu";
-import Result from "./Result";
+import Player from "./Player";
+import { useState } from "react";
+import axios from "axios";
+
 
 const Players = () => {
     const teams = ['FC New Paltz',
@@ -40,8 +43,10 @@ const Players = () => {
        '220 lb'];
 
        const [data, setData] = useState({
-        firstname: '',
-        lastname: '',
+        name: {
+            firstname: '',
+            lastname: '',
+           },
         position: '',
         club: '',
         foot: '',
@@ -66,47 +71,109 @@ const Players = () => {
     const [weight, setWeight] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [returnedAll, setReturnedAll] = useState(['']);
+
+    const setPlayer = () => {
+        setData(
+            {
+                name: {firstname: firstname, lastname: lastname}, age: age, position: position, foot: foot, club: club, county: county, city: city, height: height, weight: weight, email: email, phone: phone
+            }
+        );
+
+    console.log(data);
+    }
+
+    const onTest = () => {
+        setPlayer();
+    }
+
+    const handleSearch = () => {
+
+        setPlayer();
+
+        console.log(data);
+        if((firstname != '' && lastname != '')){
+            axios.get(`http://localhost:3001/players/${firstname}/${lastname}`)
+            .then(res => {
+                setReturnedAll(res.data);
+                map(res.data);
+            })
+            .catch(err => console.log(err))
+        }
+    } 
+
+    const handleAdd = () => {
+
+        setPlayer();
+
+        console.log(data);
+        axios.post('http://localhost:3001/players/', data)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+    }
+
+
+    const map = (ar) => {
+        console.log(ar);
+            return ar.map((e, i) => {
+                <Player firstname={e.name.firstname} lastname={e.name.lastname} age={e.age} position={e.position} foot={e.foot} weight={e.weight} height={e.height} email={e.email} phone={e.phone} county={e.county} club={e.club} city={e.city} key={e._id} />
+            });
+    }
+    const getValue = (value, id) => {
+        if(id === "teams"){
+            setClub(value)
+        }else if(id === 'positions'){
+            setPosition(value)
+        }else if(id === 'heights'){
+            setHeight(value);
+        }else if(id === 'weights'){
+            setWeight(value);
+        }else if(id === 'foots'){
+            setFoot(value);
+        }
+        
+    }
+
 
     return (
-        <div class="main">
+        <div className="main">
             <div className="input-area">
                 <div className="input-area-1">
-                <label> First Name </label>
-                <input onFirstNameChange={e => setFirstName(e.target.value)} type="text"/>
-                <label> Last Name </label>
-                <input onLastNameChange={e => setLastName(e.target.value)} type="text" />
-               <label> Age </label>
-               <input onAgeChange={e => setAge(e.target.value)} type="text" />
-               <label> County </label>
-               <input onCountyChange={e => setCounty(e.target.value)} type="text" />
-                <label> City </label>
-                <input onCityChange={e => setCity(e.target.value)} type="text"  />
                 <label> Club </label>
-                <DropMenu value={teams} />
-                <button>Search</button>
-                <button>Add</button>
+                <DropMenu defaultText="Select Team" id="teams" getValue={getValue} value={teams} />
+                <label> First Name </label>
+                <input value={firstname} onChange={(e) => setFirstName(e.target.value)} type="text"/>
+                <label> Last Name </label>
+                <input value={lastname} onChange={(e) => setLastName(e.target.value)} type="text" />
+               <label> Age </label>
+               <input value={age} onChange={(e) => setAge(e.target.value)} type="text" />
+               <label> County </label>
+               <input value={county} onChange={(e) => setCounty(e.target.value)} type="text" />
+                <label> City </label>
+                <input value={city} onChange={(e) => setCity(e.target.value)} type="text"  />
+                <button onClick={handleSearch}>Search</button>
+                <button onClick={handleAdd}>Add</button>
             </div>
             <div className="input-area-2">
                 <label> Position </label>
-                <DropMenu value={positions} />
+                <DropMenu defaultText="Select Position" id="positions" getValue={getValue} value={positions} />
                 <label> Strong Foot </label>
-                <DropMenu value={foots} />
+                <DropMenu defaultText="Select Foot" id="foots" getValue={getValue} value={foots} />
                 <label> Height </label>
-                <DropMenu value={heights} />
+                <DropMenu defaultText="Select Height" id="heights" getValue={getValue} value={heights} />
                 <label> Weight </label>
-                <DropMenu value={weights} />
+                <DropMenu defaultText="Select Weight" id="weights" getValue={getValue} value={weights} />
                 <label> Email </label>
-               <input onEmailChange={e => setEmail(e.target.value)} type="text"  />
+               <input value={email} onChange={(e) => setEmail(e.target.value)} type="text"  />
                 <label> Phone </label>
-                <input onPhoneChange={e => setPhone(e.target.value)} type="text" />
-                <button>Update</button>
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="text" />
+                <button onClick={onTest}>Update</button>
                 <button>Delete</button>
             </div>
         </div>
-        <div class="results">
-            <Result firstname="Omar" lastname="Khalil" age="25" club="FC New Paltz" position="CAM" height="5'8" weight="155 lb"county="Ulster" city="New Paltz" phone="8457065330" email="omareldagestany@outlook.com" foot="Right"/>
-            <Result firstname="Omar" lastname="Khalil" age="25" club="FC New Paltz" position="CAM" height="5'8" weight="155 lb"county="Ulster" city="New Paltz" phone="8457065330" email="omareldagestany@outlook.com" foot="Right"/>
-            <Result firstname="Omar" lastname="Khalil" age="25" club="FC New Paltz" position="CAM" height="5'8" weight="155 lb"county="Ulster" city="New Paltz" phone="8457065330" email="omareldagestany@outlook.com" foot="Right" />
+        <div className="results">
+            <Player firstname="Omar" lastname="Khalil" age="25" club="FC New Paltz" position="CAM" height="5'8" weight="155 lb"county="Ulster" city="New Paltz" phone="8457065330" email="omareldagestany@outlook.com" foot="Right"/>
+            { map }
         </div>
     </div>
     )

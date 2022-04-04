@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom'
 const NavBar = () => {
 
     return (
-        <nav class="navbar">
+        <nav className="navbar">
             <div>
                 <Link className="link" to="/">Home</Link>
-                <Link className="link" to="about">About</Link>
-                <Link className="link" to="clubs">Clubs</Link>
-                <Link className="link" to="players">Players</Link>
+                <Link className="link" to="aboutpage">About</Link>
+                <Link className="link" to="leaguespage">Leagues</Link>
+                <Link className="link" to="clubspage">Clubs</Link>
+                <Link className="link" to="playerspage">Players</Link>
             </div>
         </nav>
 
