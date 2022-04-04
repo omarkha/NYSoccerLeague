@@ -1,39 +1,37 @@
 const router = require('express').Router();
-let Club = require('../models/club.model');
+let League = require('../models/league.model');
 
 router.route('/').get((req, res, next) => {
-    Club.find()
-    .then(clubs => res.json(clubs))
+    League.find()
+    .then(leagues => res.json(leagues))
     .catch(err => res.status(400).json("Error: " + err));
     next();
 });
 
 router.route('/:id').get((req, res, next) => {
-    Club.findById(req.params.id)
-    .then(club => res.json(club))
+    League.findById(req.params.id)
+    .then(league => res.json(league))
     .catch(err => res.status(400).json("Error: " + err));
     next();
 }); 
 
 router.route('/:id').delete((req, res, next) => {
-    Club.findByIdAndDelete(req.params.id)
-    .then(clubs => res.json(clubs))
+    League.findByIdAndDelete(req.params.id)
+    .then(league => res.json(league))
     .catch(err => res.status(400).json("Error: " + err));
     next();
 }); 
 
 router.route('/add').post((req, res, next) => {
 
-    const name = req.body.name;
     const county = req.body.county;
-    const city = req.body.city;
 
-    const newClub = new Club({
-        name, county, city
+    const newLeauge = new League({
+        county
     });
 
-    newClub.save()
-    .then(() => res.json("Club Added!"))
+    newLeague.save()
+    .then(() => res.json("League Added!"))
     .catch(err => res.status(400).json('Error: ' + err));
     next();
 });

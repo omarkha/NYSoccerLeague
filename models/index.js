@@ -1,11 +1,14 @@
 const mongoose = require('mongoose')
-const playerSchema = require('./player')
-const clubSchema = require('./club')
+const playerSchema = require('./player.model')
+const clubSchema = require('./club.model')
+const leagueSchema = require('./league.model')
 
-const Club = mongoose.model('Book', clubSchema)
-const Player = mongoose.model('Publisher', playerSchema)
+const League = leagueSchema;
+const Club = clubSchema;
+const Player = playerSchema;
 
 module.exports = {
+  League,
   Club,
   Player
 }
