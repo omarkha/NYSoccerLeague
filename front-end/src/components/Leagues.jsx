@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import DropMenu from "./DropMenu";
 import axios from 'axios';
@@ -79,8 +79,8 @@ const Leagues = () => {
     'Wyoming County', 
     'Yates County',];
 
-    const [returnedAll, setReturnedAll] = useState([]);
-    const [singleReturn, setSingleReturn] = useState({});
+    const [leagues, setLeagues] = useState([]);
+    const [singleLeague, setSingleLeague] = useState({});
     let returned = [];
 
         const getValue = (value) => {
@@ -98,27 +98,33 @@ const Leagues = () => {
 
         const handleSearch = (a) => {
             getValue();
-
             if(selectedCounty === "All Leagues"){
                 axios.get('http://localhost:3001/leagues')
                 .then(res => {
 
-                    setReturnedAll(res.data);
-                    returned = returnedAll;
+                    setLeagues(res.data);
+                    console.log(leagues);
+                    returned = leagues;
                     returned.sort();
                 })
                 .catch(err => console.log("Err: ", err))
             }else if(selectedCounty !== "All Leagues"){
                 axios.get(`http://localhost:3001/leagues/${selectedCounty}`)
                 .then(res => {
-                    setReturnedAll([]);
-                    setSingleReturn(res.data);
-                    console.log(singleReturn);
+                    setLeagues([res.data]);
+                    setSingleLeague(res.data);
+                    console.log(singleLeague)
                 })
                 .catch(err => console.log(err))
             }
         }
 
+    
+
+        const handleRemove = (id) => {
+            const newLeagues = leagues.filter(league => league._id != id);
+            setLeagues(newLeagues);
+        }
     return (
         <div className="main">
             <div className="club-input">
@@ -130,7 +136,11 @@ const Leagues = () => {
                 <button className="club-input-button">Delete</button>
             </div>
             <div className="results">
-                { returnedAll > 0 ? returnedAll.map((e) => <League county={e.county} key={e._id} />) : <League county={singleReturn.county} key={singleReturn._id} /> }
+
+
+            { leagues.map((lig) => <League handleRemove={handleRemove} county={lig.county} id={lig._id} /> ) }
+            
+            
             </div>
         </div>
     )
