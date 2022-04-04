@@ -1,6 +1,7 @@
 import React from "react";
 
 const League = (props) => {
+
     return (
         <div className="result">
             <h3>{props.county} ASL</h3 >

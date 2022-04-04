@@ -7,11 +7,11 @@ const DropMenu = (props) => {
     
     const id = props.id;
 
-    props.getValue(selection, id);
+    props.getValue(selection);
     
     return (
     
-        <select key={id} id={props.id} onChange={(e) => setSelection(e.target.value)} >
+        <select key={id} onChange={(e) => setSelection(e.target.value)} >
             <option selected>{props.defaultText}</option>
             {props.value.map((element, index) => 
                 <option value={element} key={index}>{element}</option>

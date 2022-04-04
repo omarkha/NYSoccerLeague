@@ -12,7 +12,7 @@ const Leagues = () => {
         }
     )
 
-    const [county, setCounty] = useState('');
+    const [selectedCounty, setSelectedCounty] = useState('');
 
     const counties = [
     'All Leagues', 
@@ -80,53 +80,45 @@ const Leagues = () => {
     'Yates County',];
 
     const [returnedAll, setReturnedAll] = useState([]);
+    const [singleReturn, setSingleReturn] = useState({});
+    let returned = [];
 
-    const [searchedAll, setSearchedAll] = useState(false);
-
-        const getValue = (value, id) => {
-            setCounty(value)
+        const getValue = (value) => {
+            console.log(value)
+            setSelectedCounty(value);
         }
 
-        const handleAdd = () => {
-            setData({county: county});
-
-            console.log(data);
-            const club = data;
-    
-            console.log(data);
-            axios.post('http://localhost:3001/leagues', data)
+        const handleAdd = () => {   
+            const league = {county: selectedCounty};
+            console.log(league);
+            axios.post('http://localhost:3001/leagues', league)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
         }
 
         const handleSearch = (a) => {
-            setSearchedAll(false)
-    
-            if(county === "All Leagues"){
+            getValue();
+
+            if(selectedCounty === "All Leagues"){
                 axios.get('http://localhost:3001/leagues')
                 .then(res => {
-                    setSearchedAll(true)
+
                     setReturnedAll(res.data);
-                    map(res.data);
+                    returned = returnedAll;
+                    returned.sort();
                 })
                 .catch(err => console.log("Err: ", err))
-            }else{
-                axios.get(`http://localhost:3001/leagues/${county}`)
+            }else if(selectedCounty !== "All Leagues"){
+                axios.get(`http://localhost:3001/leagues/${selectedCounty}`)
                 .then(res => {
-                    setSearchedAll(true);
-                    setReturnedAll(res.data);
-                    map(res.data);
+                    setReturnedAll([]);
+                    setSingleReturn(res.data);
+                    console.log(singleReturn);
                 })
                 .catch(err => console.log(err))
             }
         }
 
-        const map = (ar) => {
-            console.log(ar);
-            return ar.map((e, i) => {
-                <League county={e.county} key={e.id} />
-            });
-        }
     return (
         <div className="main">
             <div className="club-input">
@@ -138,7 +130,7 @@ const Leagues = () => {
                 <button className="club-input-button">Delete</button>
             </div>
             <div className="results">
-                { searchedAll ? returnedAll.map((e) => <League county={e.county} key={e._id} /> ) : null }
+                { returnedAll > 0 ? returnedAll.map((e) => <League county={e.county} key={e._id} />) : <League county={singleReturn.county} key={singleReturn._id} /> }
             </div>
         </div>
     )
