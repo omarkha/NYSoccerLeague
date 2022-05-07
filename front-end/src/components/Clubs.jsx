@@ -92,11 +92,12 @@ const Clubs = () => {
                 <DropMenu defaultText="Select County" getValue={getValue} value={counties} id="clubcounty" />
                 <label>Club City </label>
                 <input value={city} onChange={(e) => setCity(e.target.value)} type="text" id="clubcity" />
-                
+                <div className="buttons">
                 <button className="club-input-button" onClick={handleSearch}>Search</button>
                 <button className="club-input-button" onClick={handleAdd}>Add</button>
                 <button className="club-input-button" onClick={handleUpdate}>Update</button>
                 <button className="club-input-button" onClick={handleRemove}>Remove</button>
+                </div>
             </div>
             <div className="results">
                 { clubs.map((club) => <Club clubname={club.name} clubcity={club.city} clubcounty={club.county} key={club._id} id={club._id}/>)}

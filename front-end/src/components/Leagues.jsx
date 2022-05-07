@@ -136,10 +136,11 @@ const Leagues = () => {
             <div className="club-input">
                 <label>League County </label>
                 <DropMenu defaultText="Select County" getValue={getValue} value={counties} id="leaguecounty" />
-                
+                <div className="buttons">
                 <button className="club-input-button" onClick={handleSearch}>Search</button>
                 <button className="club-input-button" onClick={handleAdd}>Add</button>
                 <button className="club-input-button">Delete</button>
+                </div>
             </div>
             <div className="results">
 
