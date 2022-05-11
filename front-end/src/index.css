@@ -31,7 +31,7 @@ code {
 }
 
 h1 {
-	color: rgb(220, 220, 25);
+	color: rgb(160,225,0);
 	font-size: 34px;
 	letter-spacing: 3px;
 	text-shadow: 3px 3px 5px rgb(40, 40, 40);
@@ -122,7 +122,7 @@ select:focus {
 	opacity: 1;
 }
 .logo {
-	background-color: rgb(255,255,0);
+	background-color: rgb(160,225,0);
 	border-radius: 13px;
 	margin: 34px 55px 0 55px;
 	float: left;
@@ -189,7 +189,7 @@ button:active {
 }
 
 h3 {
-	color: #fff;
+	color: rgb(220,220,40);
 	letter-spacing: 5px;
 }
 
@@ -211,7 +211,7 @@ h4 {
 	height: 450px;
 	background-color: rgb(25, 63, 40);
 	border: 3px solid rgb(25, 101, 63);
-	border-radius: 5px;
+	border-radius: 21px;
 }
 
 .result {
