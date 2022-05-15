@@ -3,7 +3,7 @@ import DropMenu from "./DropMenu";
 import Player from "./Player";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { response } from "express";
+
 
 
 const Players = () => {
@@ -28,14 +28,14 @@ const Players = () => {
        '220 lb'];
 
 
-       const [clubs, setClubs] = useState([]);
-       const [leagues, setLeagues] = useState([]);
-       const [players, setPlayers] = useState([]);
+        const [clubs, setClubs] = useState([]);
+        const [leagues, setLeagues] = useState([]);
+        const [players, setPlayers] = useState([]);
    
    
-          const [data, setData] = useState({
+        const [data, setData] = useState({
             firstname: '',
-            lastname: '',
+            lastName: '',
             position: '',
             club: '',
             foot: '',
@@ -48,8 +48,8 @@ const Players = () => {
             phone: '',
        });
    
-       const [firstname, setFirstName] = useState('');
-       const [lastname, setLastName] = useState('');
+       const [firstname, setFirstname] = useState('');
+       const [lastname, setLastname] = useState('');
        const [age, setAge] = useState(0);
        const [position, setPosition] = useState('');
        const [foot, setFoot] = useState('');
@@ -60,8 +60,7 @@ const Players = () => {
        const [weight, setWeight] = useState('');
        const [email, setEmail] = useState('');
        const [phone, setPhone] = useState('');
-       const [returnedAll, setReturnedAll] = useState(['']);
-   
+       const [id, setId] = useState('');
 
     const getLeagues = () => {
         axios.get('http://localhost:3001/leagues/')
@@ -76,33 +75,44 @@ const Players = () => {
 
     useEffect(getLeagues, []);
 
-    const getClubs = () => {
+    const getClubs = (value) => {
         console.log(county);
-        const league = county + " ASL";
+
+        const league = value + " ASL";
+
         axios.get(`http://localhost:3001/clubs/${league}`)
         .then(response => {
-            const newClubs = response.data.map((e, i) => e.name);
+
             setClubs(
-                newClubs
+                response.data.map((e, i) => e.name)
             );
+
             console.log(clubs);
+
         })
         .catch(err => console.log("Err: ", err))
         
     }
 
     const setPlayer = () => {
-        setData(
-            {
-               firstname: firstname, lastname: lastname, age: age, position: position, foot: foot, club: club, county: county, city: city, height: height, weight: weight, email: email, phone: phone
-            }
-        );
+        const newData = {
+            'firstname': firstname, 
+            'lastname': lastname, 
+            'age': age, 
+            'position': position, 
+            'foot': foot, 
+            'club': club, 
+            'county': county, 
+            'city': city, 
+            'height': height, 
+            'weight': weight, 
+            'email': email, 
+            'phone': phone
+         };
+        setData(newData);
 
-    console.log(data);
-    }
-
-    const onTest = () => {
-        setPlayer();
+    console.log(newData);
+    console.log(firstname);
     }
 
     const handleSearch = () => {
@@ -113,18 +123,17 @@ const Players = () => {
 
         if((firstname !== '' && lastname !== '')){
             axios.get(`http://localhost:3001/players/${firstname}/${lastname}`)
-            .then(res => {
-                setPlayers(res.data);
+            .then(response => {
+                setPlayers(response.data);
             })
             .catch(err => console.log(err))
-        }else{
+        }else if((club !== '' && club !== 'Select Club') && (firstname === '' && lastname === '')){
             getValue();
-            const league = county + " ASL";
-            axios.get(`http://localhost:3001/clubs/${league}`)
-            .then(res => {
+            axios.get(`http://localhost:3001/players/${club}`)
+            .then(response => {
 
-                setClubs(res.data);
-                console.log(clubs);
+                setPlayers(response.data);
+                console.log(players);
             })
             .catch(err => console.log("Err: ", err))
         }
@@ -132,52 +141,102 @@ const Players = () => {
     } 
 
     const handleAdd = () => {
-
-        setPlayer();
-
+        const newData = {
+            'firstname': firstname, 
+            'lastname': lastname, 
+            'age': age, 
+            'position': position, 
+            'foot': foot, 
+            'club': club, 
+            'county': county, 
+            'city': city, 
+            'height': height, 
+            'weight': weight, 
+            'email': email, 
+            'phone': phone
+         };
         console.log(data);
-        axios.post('http://localhost:3001/players/', data)
+        axios.post('http://localhost:3001/players/', newData)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     }
 
+    const handleUpdate = () => {
+        const player = {"newFirstname": firstname, "newLastname": lastname, "newAge": age, 
+        "newPosition": position, "newFoot": foot, "newClub":club, "newCounty":county, "newCity":city, 
+        "newHeight": height, "newWeight":weight, "newEmail": email, "newPhone":phone, "_id": id};
 
-    const map = (ar) => {
-        console.log(ar);
-            return ar.map((e, i) => {
-                <Player firstname={e.name.firstname} lastname={e.name.lastname} age={e.age} position={e.position} foot={e.foot} weight={e.weight} height={e.height} email={e.email} phone={e.phone} county={e.county} club={e.club} city={e.city} key={e._id} />
-            });
+        console.log(player);
+        axios.put(`http://localhost:3001/players/update/${id}`, player)
+        .then(res => {
+            console.log("player updated")
+        }).catch(err => console.log("ErRoR DeTeCtEd p: ", err))
     }
+
     const getValue = (value, id) => {
+
         if(id === "clubs"){
             setClub(value)
-        }else if(id === 'positions'){
+        }else if(id === "positions"){
             setPosition(value)
-        }else if(id === 'heights'){
+        }else if(id === "heights"){
             setHeight(value);
-        }else if(id === 'weights'){
+        }else if(id === "weights"){
             setWeight(value);
-        }else if(id === 'foots'){
+        }else if(id === "foots"){
             setFoot(value);
-        }else if(id === 'leagues'){
+        }else if(id === "leagues"){
             setCounty(value);
         }
         
     }
 
+    const onLeagueChange = (value) => {
+        getClubs(value);
+    }
+
+    const handleDelete = (id) => {
+        const newPlayers = players.filter(p => p._id !== id);
+            setPlayers(newPlayers);
+
+            axios.delete(`http://localhost:3001/players/${id}`)
+            .then(res => {
+                console.log(" deleted from database: ", id);
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleModify = (xfirstname, xlastname, xposition, xclub, xfoot, xcounty, xcity, xage, xheight, xweight, xemail, xphone, xid) => {
+
+            setFirstname(xfirstname)
+            setLastname(xlastname)
+            setPosition(xposition)
+            setClub(xclub)
+            setFoot(xfoot)
+            setCounty(xcounty)
+            setCity(xcity)
+            setAge(xage)
+            setHeight(xheight)
+            setWeight(xweight)
+            setEmail(xemail)
+            setPhone(xphone)
+            setId(xid);
+            
+
+    }
 
     return (
         <div className="main">
             <div className="input-area">
                 <div className="input-area-1">
                     <label> County </label>
-                    <DropMenu  defaultText="Select League" value={leagues} getValue={getValue} id="leagues" />
+                    <DropMenu onLeagueChange={onLeagueChange} defaultText="Select League"  value={county} content={leagues} getValue={getValue} id="leagues" />
                     <label> Club </label>
-                    <DropMenu defaultText="Select Team" value={clubs} getValue={getValue} id="clubs"   />
+                    <DropMenu defaultText="Select Team"  value={club} content={clubs} getValue={getValue} id="clubs"   />
                     <label> First Name </label>
-                    <input value={firstname} onChange={(e) => setFirstName(e.target.value)} type="text"/>
+                    <input value={firstname} onChange={(e) => setFirstname(e.target.value)} type="text"/>
                     <label> Last Name </label>
-                    <input value={lastname} onChange={(e) => setLastName(e.target.value)} type="text" />
+                    <input value={lastname} onChange={(e) => setLastname(e.target.value)} type="text" />
                     <label> Age </label>
                     <input value={age} onChange={(e) => setAge(e.target.value)} type="text" />
                     <label> City </label>
@@ -187,23 +246,23 @@ const Players = () => {
                 </div>
                 <div className="input-area-2">
                     <label> Position </label>
-                    <DropMenu defaultText="Select Position" id="positions" getValue={getValue} value={positions} />
+                    <DropMenu defaultText="Select Position" id="positions" getValue={getValue} value={position} content={positions} />
                     <label> Strong Foot </label>
-                    <DropMenu defaultText="Select Foot" id="foots" getValue={getValue} value={foots} />
+                    <DropMenu defaultText="Select Foot" id="foots" getValue={getValue} value={foot} content={foots} />
                     <label> Height </label>
-                    <DropMenu defaultText="Select Height" id="heights" getValue={getValue} value={heights} />
+                    <DropMenu defaultText="Select Height" id="heights" getValue={getValue} value={height} content={heights} />
                     <label> Weight </label>
-                    <DropMenu defaultText="Select Weight" id="weights" getValue={getValue} value={weights} />
+                    <DropMenu defaultText="Select Weight" id="weights" getValue={getValue}  value={weight} content={weights} />
                     <label> Email </label>
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="text"  />
                     <label> Phone </label>
                     <input value={phone} onChange={(e) => setPhone(e.target.value)} type="text" />
-                    <button onClick={onTest}>Update</button>
-                    <button>Delete</button>
+                    <button onClick={handleUpdate}>Update</button>
             </div>
         </div>
         <div className="results">
-            { players.map(e => { <Player key={e._id} id={e._id} firstname={e.firstname} lastname={e.lastname} age={e.age} club={e.club} position={e.position} height={e.height} weight={e.weight} county={e.county} city={e.city} phone={e.phone} email={e.email} foot={e.foot}/> }) }
+        <div className="results-header"> <h3>Players</h3></div>
+            { players.map(e => ( <Player handleDelete={handleDelete} handleModify={handleModify} key={e._id} id={e._id} firstname={e.firstname} lastname={e.lastname} age={e.age} club={e.club} position={e.position} height={e.height} weight={e.weight} county={e.county} city={e.city} phone={e.phone} email={e.email} foot={e.foot}/> )) }
         </div>
     </div>
     )

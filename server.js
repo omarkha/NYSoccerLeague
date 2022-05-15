@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const db = require('./db');
 const clubController = require('./controllers/clubControllers.js');
-const { League, Club } = require('./models');
+const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
 const res = require('express/lib/response');
 
@@ -43,14 +43,59 @@ app.get('/clubs', async (req, res) => {
   }
 })
 
+app.get('/players', async (req, res) => {
+  try{
+  const players = await Player.find()
+  res.json(players)
+  }catch(e){
+    console.log(e)
+    res.send('leagues not found!')
+  }
+})
+
+
+app.get('/players/:club', async (req, res) => {
+  try{
+  const players = await Player.find({club: req.params.club})
+  res.send(JSON.stringify(players))
+  }catch(e){
+    console.log(e)
+    res.send('leagues not found!')
+  }
+})
+
+app.get('/players/:firstname/:lastname', async (req, res) => {
+  try{
+  const players = await Player.find({firstname: req.params.firstname, lastname:req.params.lastname})
+  res.send(JSON.stringify(players))
+  }catch(e){
+    console.log(e)
+    res.send('leagues not found!')
+  }
+})
+
 app.get('/clubs/:league', async (req, res) => {
 try{
-  const club = await Club.find({"league": req.params.league})
+  console.log("SELECTED--- " + req.params.league);
+  const club = await Club.find({'league': req.params.league})
 
   res.send(JSON.stringify(club))
   }catch(e){
     console.log(e)
     res.send("not worky: "+ e);
+  }
+})
+
+app.delete('/players/:id', async (req, res) => {
+  try {
+
+    const id = req.params.id;
+    const player = await Player.findByIdAndRemove(id)
+    if (!player) throw Error('couty not found')
+    res.json(player)
+  } catch (e) {
+    console.log(e)
+    res.send('player not found!')
   }
 })
 
@@ -117,6 +162,43 @@ app.put('/clubs/update/:id', (req, res) => {
   }
 })
 
+app.put('/players/update/:id', (req, res) => {
+  
+  const newFirstname = req.body.newFirstname
+  const newLastname = req.body.newLastname;
+  const newCounty = req.body.newCounty;
+  const newClub = req.body.newClub;
+  const newAge = req.body.newAge;
+  const newPosition = req.body.newPosition;
+  const newWeight = req.body.newWeight;
+  const newHeight = req.body.newHeight;
+  const newEmail = req.body.newEmail;
+  const newPhone = req.body.newPhone;
+  const newFoot = req.body.newFoot;
+  const id = req.params.id;
+
+try{
+   Player.findById(id, (err, newPlayer) => {
+    newPlayer.firstname = newFirstname;
+    newPlayer.lastname = newLastname;
+    newPlayer.county = newCounty;
+    newPlayer.club = newClub;
+    newPlayer.age = newAge;
+    newPlayer.position = newPosition;
+    newPlayer.weight = newWeight;
+    newPlayer.height = newHeight;
+    newPlayer.email = newEmail;
+    newPlayer.phone = newPhone;
+    newPlayer.foot = newFoot;
+    newPlayer.save();
+    res.send("updated");
+  })
+}catch(e){
+  console.log(e);
+  res.send("worky.. not");
+}
+})
+
 app.post('/leagues', (req, res) => {
 
   const league = new League(req.body);
@@ -138,6 +220,14 @@ console.log("Club added!");
 }
 )
 
+app.post('/players', (req, res) => {
+  const player = new Player(req.body);
+  player.save()
+  .then((result) => {
+      console.log("Club added!");
+  })
+  .catch(err => console.log("error: ", err))
+})
 
 const connection = mongoose.connection;
 

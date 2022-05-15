@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import DropMenu from "./DropMenu";
 import axios from 'axios';
 import League from "./League";
 
 const Leagues = () => {
+
 
     const [selectedCounty, setSelectedCounty] = useState('');
 
@@ -74,6 +75,7 @@ const Leagues = () => {
     'Yates County',];
 
     const [leagues, setLeagues] = useState([]);
+    
     let returned = [];
 
         const getValue = (value) => {
@@ -106,7 +108,7 @@ const Leagues = () => {
                 .then(res => {
                     setLeagues([res.data]);
                     console.log(leagues)
-
+               
                 })
                 .catch(err => console.log(err))
             }
@@ -115,7 +117,7 @@ const Leagues = () => {
     
 
         const handleRemove = (id) => {
-            const newLeagues = leagues.filter(league => league._id != id);
+            const newLeagues = leagues.filter(league => league._id !== id);
             setLeagues(newLeagues);
 
             axios.delete(`http://localhost:3001/leagues/${id}`)
@@ -128,7 +130,7 @@ const Leagues = () => {
         <div className="main">
             <div className="club-input">
                 <label>League County </label>
-                <DropMenu defaultText="Select County" getValue={getValue} value={counties} id="leaguecounty" />
+                <DropMenu defaultText="Select County" getValue={getValue} value={selectedCounty} content={counties} id="leaguecounty" />
                 <div className="buttons">
                 <button className="club-input-button" onClick={handleSearch}>Search</button>
                 <button className="club-input-button" onClick={handleAdd}>Add</button>
@@ -136,7 +138,8 @@ const Leagues = () => {
                 </div>
             </div>
             <div className="results">
-
+                <div className="results-header"> <h3>Leagues</h3></div>
+               
 
             { leagues.map((lig) => <League handleRemove={handleRemove} county={lig.county} id={lig._id} /> ) }
             

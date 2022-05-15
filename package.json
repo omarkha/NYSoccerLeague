@@ -1,5 +1,5 @@
 {
-  "name": "nysoccerleague",
+  "name": "socleague",
   "version": "1.0.0",
   "description": "![image](ss.png)",
   "main": "server.js",
@@ -13,20 +13,23 @@
     "url": "git+https://github.com/omarkha/NYSoccerLeague.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Omar Khalil",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/omarkha/NYSoccerLeague/issues"
   },
   "homepage": "https://github.com/omarkha/NYSoccerLeague#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "mongoose": "^6.3.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "yabai": "^0.0.10"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "webpack": "^5.72.1"
   }
 }
