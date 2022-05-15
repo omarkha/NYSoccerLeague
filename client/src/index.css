@@ -6,7 +6,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: rgb(25, 25, 25);
-	background-image: url("https://media.istockphoto.com/vectors/peony-floral-repeat-pattern-vector-id538505395");
+	background-image: url("https://thumbs.dreamstime.com/b/green-lawn-grass-pattern-texture-repeating-seamless-vector-image-garden-86084538.jpg");
 	background-size: 610px;
 	font-family: Exo 2;
 }
@@ -35,8 +35,8 @@ code {
 h1 {
 	text-decoration: underline;
 	text-decoration-color: #fff;
-	color: rgb(40,160,0);
-	font-size: 55px;
+	color: rgb(83,160,0);
+	font-size: 45px;
 	letter-spacing: 3px;
 	text-shadow: 3px 3px 5px rgb(40, 40, 40);
 	font-family: koulen;
@@ -161,7 +161,7 @@ select:focus {
 .logo {
 	background-color: rgb(235, 220, 235);
 	border-radius: 13px;
-	margin: 55px 55px 0 55px;
+	margin: 34px 34px 0 34px;
 	float: left;
 	width: 9%;
 	border-right: 3px solid rgb(20, 35, 20);
@@ -228,7 +228,7 @@ button:active {
 }
 
 h3 {
-	color: rgb(160, 160, 0);
+	color: rgb(160, 225, 101);
 	letter-spacing: 5px;
 }
 
