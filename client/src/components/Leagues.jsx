@@ -96,17 +96,16 @@ const Leagues = () => {
             if(selectedCounty === "All Leagues"){
                 axios.get('http://localhost:3001/leagues')
                 .then(res => {
-
+                    const x = res.data;
+                    console.log("123123123 ++ ", x);
                     setLeagues(res.data);
                     console.log(leagues);
-                    returned = leagues;
-                    returned.sort();
                 })
                 .catch(err => console.log("Err: ", err))
             }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
-                axios.get(`http://localhost:3001/leagues/getone/${selectedCounty}`)
+                axios.get(`http://localhost:3001/leagues/findone/${selectedCounty}`)
                 .then(res => {
-                    setLeagues([res.data]);
+                    setLeagues(res.data);
                     console.log(leagues)
                
                 })
@@ -141,7 +140,7 @@ const Leagues = () => {
                 <div className="results-header"> <h3>Leagues</h3></div>
                
 
-            { leagues.map((lig) => <League handleRemove={handleRemove} county={lig.county} id={lig._id} /> ) }
+            { leagues.map((lig) => <League handleRemove={handleRemove} county={lig.county} key={lig._id} id={lig._id} /> ) }
             
             
             </div>

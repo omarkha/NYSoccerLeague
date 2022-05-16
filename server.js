@@ -125,12 +125,12 @@ app.delete('/leagues/:id', async (req, res) => {
   }
 })
 
-app.get('/leagues/getone/:county', async (req, res) => {
+app.get('/leagues/findone/:county', async (req, res) => {
   
   try {
     const county_encode = req.params.county;
-    county.replace("&20", " ");
-    console.log(county);
+    county_encode.replace("&20", " ");
+    console.log(county_encode);
     const league = await League.find({county: county_encode})
     if (!league) throw Error('couty not found')
     res.json(league)

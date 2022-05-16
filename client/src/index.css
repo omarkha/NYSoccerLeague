@@ -1,3 +1,5 @@
+
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -6,7 +8,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: rgb(25, 25, 25);
-	background-image: url("https://thumbs.dreamstime.com/b/green-lawn-grass-pattern-texture-repeating-seamless-vector-image-garden-86084538.jpg");
+	background-image: url("./images/grass-pattern.jpeg");
 	background-size: 610px;
 	font-family: Exo 2;
 }
@@ -128,8 +130,8 @@ input[type="text"] {
 	font-family:  Exo 2;
 	letter-spacing: 3px;
 	border-radius: 13px;
-	background-color: rgb(25, 101, 63);
-	border: 1px solid rgb(63, 160, 101);
+	background-color: rgb(63, 101, 25);
+	border: 1px solid rgb(101, 160, 25);
 	color: #fff;
 }
 input[type="text"]:hover {
@@ -148,8 +150,8 @@ select {
 	font-family:  Exo 2;
 	letter-spacing: 3px;
 	color: #fff;
-	background-color: rgb(25, 101, 63);
-	border: 1px solid rgb(63, 160, 63);
+	background-color: rgb(63, 101, 25);
+	border: 1px solid rgb(101, 160, 25);
 	border-radius: 13px;
 }
 select:hover {
@@ -203,11 +205,11 @@ a:hover {
 }
 
 button {
-	color: rgb(215, 215, 25);
+	color: rgb(225, 225, 160);
 	margin: 13px;
 	height: 27px;
 	background-color: rgb(80, 80, 15);
-	border: 2px solid rgb(160, 160, 101);
+	border: 1px solid rgb(160, 160, 40);
 	border-radius: 13px;
 	width: 144px;
 	letter-spacing: 3px;
@@ -250,29 +252,29 @@ h4 {
 	overflow: scroll;
 	height: 500px;
 	background-color: rgb(15, 38, 15);
-	border: 3px solid rgb(40, 101, 63);
+	border: 3px solid rgb(63, 63, 25);
 	border-radius: 21px;
 }
 
 .results-header {
-	background-color: rgb(40, 101, 63);
+	background-color: rgb(63, 63, 25);
 	padding: 3px 0 3px 0;
 	
 }
 
 .results-header h3 {
-	color: rgb(185, 185, 185);
+	color: rgb(185, 185, 25);
 
 }
 
 .result {
-	background-color: rgb(34, 55, 89);
+	background-color: rgb(55, 89, 34);
 	opacity: 0.9;
 	width: 90%;
 	margin: 8px auto;
 	padding: 8px 0 8px 0;
 	border-radius: 21px;
-	border: 1px solid rgb(76, 127, 255);
+	border: 1px solid rgb(127, 225, 76);
 }
 
 .result p {
