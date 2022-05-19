@@ -112,8 +112,9 @@ footer p {
 }
 
 p {
-	color: rgb(180, 195, 180);
+	color: rgb(225, 255, 160);
 	line-height: 34px;
+	word-spacing: 3px;
 }
 label {
 	line-height: 34px;
@@ -230,7 +231,7 @@ button:active {
 }
 
 h3 {
-	color: rgb(160, 225, 101);
+	color: rgb(225, 255, 101);
 	letter-spacing: 5px;
 }
 

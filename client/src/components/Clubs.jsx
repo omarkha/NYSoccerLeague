@@ -17,7 +17,7 @@ const Clubs = () => {
 
 
     const [name, setName] = useState('');
-    const [county, setCounty] = useState('');
+    const [county, setCounty] = useState('Select County');
     const [city, setCity] = useState('');
     const [id, setId] = useState('');
     const [counties, setCounties] = useState(['']);
@@ -38,19 +38,41 @@ const Clubs = () => {
     useEffect(getLeagues, []);
 
     const handleSearch = () => {
-        if(county === "Select County"){
-            getValue();
-            axios.get('http://localhost:3001/clubs/')
+
+        getValue();
+
+        if(county !== 'Select County' && name === '' && city === ''){
+
+            const league = county + " ASL";
+            axios.get(`http://localhost:3001/clubs/league/${league}`)
             .then(res => {
 
                 setClubs(res.data);
                 console.log(clubs);
             })
             .catch(err => console.log("Err: ", err))
-        }else{
-            getValue();
-            const league = county + " ASL";
-            axios.get(`http://localhost:3001/clubs/${league}`)
+        }else if(name !== '' && county === 'Select County' && city === ''){
+            
+            axios.get(`http://localhost:3001/clubs/name/${name}`)
+            .then(res => {
+
+                setClubs(res.data);
+                console.log(clubs);
+            })
+            .catch(err => console.log("Err: ", err))
+        }else if(name === '' && county === 'Select County' && city !== ''){
+            
+            axios.get(`http://localhost:3001/clubs/city/${city}`)
+            .then(res => {
+
+                setClubs(res.data);
+                console.log(clubs);
+            })
+            .catch(err => console.log("Err: ", err))
+        }else if(name !== '' && county === 'Select County' && city !== ''){
+            console.log("city : " + city + ", name : " + name);
+            const club = {'name': name, 'city': city};
+            axios.get(`http://localhost:3001/clubs/city&name/${city}/${name}`)
             .then(res => {
 
                 setClubs(res.data);
@@ -59,7 +81,9 @@ const Clubs = () => {
             .catch(err => console.log("Err: ", err))
         }
         
-        
+        setCounty('Select County');
+        setName('');
+        setCity('');
     }
 
     const getValue = (value, id) =>{

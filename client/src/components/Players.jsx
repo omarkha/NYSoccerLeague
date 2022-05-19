@@ -80,7 +80,7 @@ const Players = () => {
 
         const league = value + " ASL";
 
-        axios.get(`http://localhost:3001/clubs/${league}`)
+        axios.get(`http://localhost:3001/clubs/league/${league}`)
         .then(response => {
 
             setClubs(
@@ -206,6 +206,8 @@ const Players = () => {
             .catch(err => console.log(err))
     }
 
+
+
     const handleModify = (xfirstname, xlastname, xposition, xclub, xfoot, xcounty, xcity, xage, xheight, xweight, xemail, xphone, xid) => {
 
             setFirstname(xfirstname)
@@ -222,7 +224,6 @@ const Players = () => {
             setPhone(xphone)
             setId(xid);
             
-
     }
 
     return (

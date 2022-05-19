@@ -33,9 +33,9 @@ app.get('/leagues', async (req, res) => {
   }
 })
 
-app.get('/clubs', async (req, res) => {
+app.get('/clubs/city&name/:city/:name', async (req, res) => {
   try{
-  const club = await Club.find()
+  const club = await Club.find({'name':req.params.name, 'city':req.params.city})
   res.json(club)
   }catch(e){
     console.log(e)
@@ -74,7 +74,7 @@ app.get('/players/:firstname/:lastname', async (req, res) => {
   }
 })
 
-app.get('/clubs/:league', async (req, res) => {
+app.get('/clubs/league/:league', async (req, res) => {
 try{
   console.log("SELECTED--- " + req.params.league);
   const club = await Club.find({'league': req.params.league})
@@ -85,6 +85,29 @@ try{
     res.send("not worky: "+ e);
   }
 })
+
+app.get('/clubs/name/:name', async (req, res) => {
+  try{
+    console.log("SELECTED--- " + req.params.name);
+    const club = await Club.find({'name': req.params.name})
+  
+    res.send(JSON.stringify(club))
+    }catch(e){
+      console.log(e)
+      res.send("not worky: "+ e);
+    }
+  })
+  app.get('/clubs/city/:city', async (req, res) => {
+    try{
+      console.log("SELECTED--- " + req.params.city);
+      const club = await Club.find({'city': req.params.city})
+    
+      res.send(JSON.stringify(club))
+      }catch(e){
+        console.log(e)
+        res.send("not worky: "+ e);
+      }
+    })
 
 app.delete('/players/:id', async (req, res) => {
   try {
