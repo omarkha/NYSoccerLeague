@@ -2,18 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const db = require('./db');
-require('dotenv').config;
 const clubController = require('./controllers/clubControllers.js');
 const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
 const res = require('express/lib/response');
-
+const path = require("path");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+require('dotenv').config() 
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Copyres:<password>@cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://Copyres:Soridl846@Cluster0.ohmco.mongodb.net/SocDB?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
@@ -21,7 +22,17 @@ client.connect(err => {
   client.close();
 });
 
-app.use(express.static(`${NYSoccerLeague}/client/build`))
+__dirname = path.resolve();
+if(process.env.NODE_ENV === 'producction'){
+
+}else{
+  app.get('/', (req, res) => {
+    res.send("You're a wizard, Harry!")
+  })
+}
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -29,9 +40,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
 
-app.get('/', (req, res) => {
-  res.send("You're a wizard, Harry!")
-})
 
 // await Leagie.find
 
@@ -291,8 +299,9 @@ connection.once('open', () => {
 })
 
 app.get('/*', (req, res) => {
-  res.sendFile(`${NYSoccerLeague}/client/build/index.html`)
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
  })
+
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)

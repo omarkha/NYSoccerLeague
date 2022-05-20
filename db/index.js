@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-let dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb+srv://Copyres:Soridl846@cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority';
+let dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://127.0.0.1:27017/Cluster0';
 mongoose
   .connect(dbUrl)
   .then(() => {
