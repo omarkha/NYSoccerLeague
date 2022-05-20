@@ -46,8 +46,8 @@ const Clubs = () => {
             const league = county + " ASL";
             axios.get(`http://localhost:3001/clubs/league/${league}`)
             .then(res => {
-
-                setClubs(res.data);
+                const newData = res.data.sort((a, b) => { return (a.name > b.name) ? 1 : -1});
+                setClubs(newData);
                 console.log(clubs);
             })
             .catch(err => console.log("Err: ", err))
@@ -55,8 +55,8 @@ const Clubs = () => {
             
             axios.get(`http://localhost:3001/clubs/name/${name}`)
             .then(res => {
-
-                setClubs(res.data);
+                const newData = res.data.sort((a, b) => { return (a.name > b.name) ? 1 : -1});
+                setClubs(newData);
                 console.log(clubs);
             })
             .catch(err => console.log("Err: ", err))
@@ -64,8 +64,8 @@ const Clubs = () => {
             
             axios.get(`http://localhost:3001/clubs/city/${city}`)
             .then(res => {
-
-                setClubs(res.data);
+                const newData = res.data.sort((a, b) => { return (a.city > b.city) ? 1 : -1});
+                setClubs(newData);
                 console.log(clubs);
             })
             .catch(err => console.log("Err: ", err))
@@ -74,8 +74,8 @@ const Clubs = () => {
             const club = {'name': name, 'city': city};
             axios.get(`http://localhost:3001/clubs/city&name/${city}/${name}`)
             .then(res => {
-
-                setClubs(res.data);
+                const newData = res.data.sort((a, b) => { return (a.name > b.name) ? 1 : -1});
+                setClubs(newData);
                 console.log(clubs);
             })
             .catch(err => console.log("Err: ", err))

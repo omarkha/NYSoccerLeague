@@ -124,15 +124,34 @@ const Players = () => {
         if((firstname !== '' && lastname !== '')){
             axios.get(`http://localhost:3001/players/${firstname}/${lastname}`)
             .then(response => {
-                setPlayers(response.data);
+                const newData = response.data.sort((a, b) => { return (a.firstname > b.firstname) ? 1 : -1});
+                setPlayers(newData);
             })
             .catch(err => console.log(err))
         }else if((club !== '' && club !== 'Select Club') && (firstname === '' && lastname === '')){
             getValue();
             axios.get(`http://localhost:3001/players/${club}`)
             .then(response => {
-
-                setPlayers(response.data);
+                const newData = response.data.sort((a, b) => { return (a.firstname > b.firstname) ? 1 : -1});
+                setPlayers(newData);
+                console.log(players);
+            })
+            .catch(err => console.log("Err: ", err))
+        }else if((firstname !== '' && lastname === '') && (club === 'Select Club' || club === '')){
+            getValue();
+            axios.get(`http://localhost:3001/players/firstname/${firstname}`)
+            .then(response => {
+                const newData = response.data.sort((a, b) => { return (a.firstname > b.firstname) ? 1 : -1});
+                setPlayers(newData);
+                console.log(players);
+            })
+            .catch(err => console.log("Err: ", err))
+        }else if((firstname === '' && lastname !== '') && (club === 'Select Club' || club === '')){
+            getValue();
+            axios.get(`http://localhost:3001/players/lastname/${lastname}`)
+            .then(response => {
+                const newData = response.data.sort((a, b) => { return (a.lastname > b.lastname) ? 1 : -1});
+                setPlayers(newData);
                 console.log(players);
             })
             .catch(err => console.log("Err: ", err))

@@ -74,6 +74,26 @@ app.get('/players/:firstname/:lastname', async (req, res) => {
   }
 })
 
+app.get('/players/lastname/:lastname', async (req, res) => {
+  try{
+  const players = await Player.find({lastname:req.params.lastname})
+  res.send(JSON.stringify(players))
+  }catch(e){
+    console.log(e)
+    res.send('leagues not found!')
+  }
+})
+
+app.get('/players/firstname/:firstname/', async (req, res) => {
+  try{
+  const players = await Player.find({firstname: req.params.firstname})
+  res.send(JSON.stringify(players))
+  }catch(e){
+    console.log(e)
+    res.send('leagues not found!')
+  }
+})
+
 app.get('/clubs/league/:league', async (req, res) => {
 try{
   console.log("SELECTED--- " + req.params.league);
