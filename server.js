@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const db = require('./db');
+require('dotenv').config;
 const clubController = require('./controllers/clubControllers.js');
 const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
@@ -10,6 +11,17 @@ const res = require('express/lib/response');
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://Copyres:<password>@cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
+app.use(express.static(`${NYSoccerLeague}/client/build`))
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -84,7 +96,7 @@ app.get('/players/lastname/:lastname', async (req, res) => {
   }
 })
 
-app.get('/players/firstname/:firstname/', async (req, res) => {
+app.get('/players/firstname/:firstname', async (req, res) => {
   try{
   const players = await Player.find({firstname: req.params.firstname})
   res.send(JSON.stringify(players))
@@ -278,6 +290,9 @@ connection.once('open', () => {
   console.log("MongoDB connected successfully");
 })
 
+app.get('/*', (req, res) => {
+  res.sendFile(`${NYSoccerLeague}/client/build/index.html`)
+ })
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
