@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const db = require('./db');
 const clubController = require('./controllers/clubControllers.js');
 const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
@@ -298,7 +297,7 @@ app.post('/players', (req, res) => {
   .catch(err => console.log("error: ", err))
 })
 
-let dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : '"mongodb+srv://Copyres:<password>@cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority"';
+let dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : '"mongodb+srv://Copyres:Soridl846@cluster0.ohmco.mongodb.net/test?retryWrites=true&w=majority"';
 mongoose
   .connect(dbUrl)
   .then(() => {
@@ -308,11 +307,9 @@ mongoose
     console.error('Connection error', e.message)
   })
 mongoose.set('debug', true)
-const db = mongoose.connection;
+mongoose.connection;
 
-connection.once('open', () => {
-  console.log("MongoDB connected successfully");
-})
+
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
