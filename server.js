@@ -14,7 +14,7 @@ const app = express();
 require('dotenv').config() 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Copyres:Soridl846@Cluster0.ohmco.mongodb.net/SocDB?retryWrites=true&w=majority";
+const uri = "mongodb+srv://Copyres:Soridl846@Cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
@@ -39,6 +39,12 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 // await Leagie.find
@@ -292,7 +298,17 @@ app.post('/players', (req, res) => {
   .catch(err => console.log("error: ", err))
 })
 
-const connection = mongoose.connection;
+let dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : '"mongodb+srv://Copyres:<password>@cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority"';
+mongoose
+  .connect(dbUrl)
+  .then(() => {
+    console.log('Successfully connected to MongoDB.')
+  })
+  .catch((e) => {
+    console.error('Connection error', e.message)
+  })
+mongoose.set('debug', true)
+const db = mongoose.connection;
 
 connection.once('open', () => {
   console.log("MongoDB connected successfully");
@@ -302,6 +318,7 @@ app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
  })
 
+ 
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
