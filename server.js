@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const db = require('./db');
 const clubController = require('./controllers/clubControllers.js');
 const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
@@ -22,13 +23,11 @@ client.connect(err => {
 });
 
 __dirname = path.resolve();
-if(process.env.NODE_ENV === 'producction'){
 
-}else{
   app.get('/', (req, res) => {
     res.send("You're a wizard, Harry!")
   })
-}
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 
@@ -36,7 +35,9 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.static(`${__dirname}/client/build`))
 app.use(express.urlencoded({ extended: false }))
+app.use(db);
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -297,25 +298,9 @@ app.post('/players', (req, res) => {
   .catch(err => console.log("error: ", err))
 })
 
-let dbUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : '"mongodb+srv://Copyres:Soridl846@cluster0.ohmco.mongodb.net/test?retryWrites=true&w=majority"';
-mongoose
-  .connect(dbUrl)
-  .then(() => {
-    console.log('Successfully connected to MongoDB.')
-  })
-  .catch((e) => {
-    console.error('Connection error', e.message)
-  })
-mongoose.set('debug', true)
-mongoose.connection;
-
-
-
 app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  res.sendFile(`${__dirname}/client/build/index.html`)
  })
-
- 
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
