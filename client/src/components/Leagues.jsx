@@ -76,6 +76,8 @@ const Leagues = () => {
 
     const [leagues, setLeagues] = useState([]);
     
+        const uri = process.env.MONGODB_URI;
+
     let returned = [];
 
         const getValue = (value) => {
@@ -86,7 +88,7 @@ const Leagues = () => {
         const handleAdd = () => {   
             const league = {county: selectedCounty};
             console.log(league);
-            axios.post('https://boiling-caverns-15602.herokuapp.com/leagues', league)
+            axios.post(`${uri}/leagues`, league)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
         }
@@ -94,7 +96,7 @@ const Leagues = () => {
         const handleSearch = (a) => {
             getValue();
             if(selectedCounty === "All Leagues"){
-                axios.get('https://boiling-caverns-15602.herokuapp.com/leagues')
+                axios.get(`${uri}/leagues`)
                 .then(res => {
                     
                     console.log("123123123 ++ ");
@@ -103,7 +105,7 @@ const Leagues = () => {
                 })
                 .catch(err => console.log("Err: ", err))
             }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
-                axios.get(`https://boiling-caverns-15602.herokuapp.com/leagues/findone/${selectedCounty}`)
+                axios.get(`${uri}/leagues/findone/${selectedCounty}`)
                 .then(res => {
                     
                     setLeagues(res.data);
