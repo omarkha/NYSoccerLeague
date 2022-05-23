@@ -96,17 +96,17 @@ const Leagues = () => {
             if(selectedCounty === "All Leagues"){
                 axios.get('https://boiling-caverns-15602.herokuapp.com/leagues')
                 .then(res => {
-                    const newData = res.data.sort((a, b) => { return (a.county > b.county) ? 1 : -1});
+                    
                     console.log("123123123 ++ ");
-                    setLeagues(newData);
+                    setLeagues(res.data);
                     console.log(leagues);
                 })
                 .catch(err => console.log("Err: ", err))
             }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
                 axios.get(`https://boiling-caverns-15602.herokuapp.com/leagues/findone/${selectedCounty}`)
                 .then(res => {
-                    const newData = res.data.sort((a, b) => { return (a.county > b.county) ? 1 : -1});
-                    setLeagues(newData);
+                    
+                    setLeagues(res.data);
                     console.log(leagues)
                
                 })
