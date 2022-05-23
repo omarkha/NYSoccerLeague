@@ -97,7 +97,7 @@ const Leagues = () => {
             getValue();
             if(selectedCounty === "All Leagues"){
                 axios.get(`${base}/leagues`)
-                .then(res => {
+                .then(response => {
                     const newData = response.data.sort((a, b) => { return (a.lastname > b.lastname) ? 1 : -1});
                     console.log("123123123 ++ ");
                     setLeagues(newData);
@@ -106,7 +106,7 @@ const Leagues = () => {
                 .catch(err => console.log("Err: ", err))
             }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
                 axios.get(`${base}/leagues/findone/${selectedCounty}`)
-                .then(res => {
+                .then(response => {
                     const newData = response.data.sort((a, b) => { return (a.county > b.county) ? 1 : -1});
                     setLeagues(newData);
                     console.log(leagues)
