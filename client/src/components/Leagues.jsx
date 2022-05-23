@@ -86,7 +86,7 @@ const Leagues = () => {
         const handleAdd = () => {   
             const league = {county: selectedCounty};
             console.log(league);
-            axios.post('http://localhost:3001/leagues', league)
+            axios.post('https://boiling-caverns-15602.herokuapp.com/leagues', league)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
         }
@@ -94,7 +94,7 @@ const Leagues = () => {
         const handleSearch = (a) => {
             getValue();
             if(selectedCounty === "All Leagues"){
-                axios.get('http://localhost:3001/leagues')
+                axios.get('https://boiling-caverns-15602.herokuapp.com/leagues')
                 .then(res => {
                     const newData = res.data.sort((a, b) => { return (a.county > b.county) ? 1 : -1});
                     console.log("123123123 ++ ");
@@ -103,7 +103,7 @@ const Leagues = () => {
                 })
                 .catch(err => console.log("Err: ", err))
             }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
-                axios.get(`http://localhost:3001/leagues/findone/${selectedCounty}`)
+                axios.get(`https://boiling-caverns-15602.herokuapp.com/leagues/findone/${selectedCounty}`)
                 .then(res => {
                     const newData = res.data.sort((a, b) => { return (a.county > b.county) ? 1 : -1});
                     setLeagues(newData);
@@ -120,7 +120,7 @@ const Leagues = () => {
             const newLeagues = leagues.filter(league => league._id !== id);
             setLeagues(newLeagues);
 
-            axios.delete(`http://localhost:3001/leagues/${id}`)
+            axios.delete(`https://boiling-caverns-15602.herokuapp.com/leagues/${id}`)
             .then(res => {
                 console.log(" deleted from database: ", id);
             })
