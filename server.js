@@ -1,12 +1,12 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-require('./db/index.js');
 const clubController = require('./controllers/clubControllers.js');
 const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
 const res = require('express/lib/response');
+const db = require('./db')
 const path = require("path");
+
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -14,21 +14,6 @@ const app = express();
 require('dotenv').config() 
 
 __dirname = path.resolve();
-
-if(process.env.NODE_ENV === "production"){
-  app.use(express.static(path.join(__dirname, "client/build")));
-
-  app.get('*', (req,res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  })
-}else{
-  app.get("*", (req, res) => {
-    res.send("Api running");
-  })
-}
-
-
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 
