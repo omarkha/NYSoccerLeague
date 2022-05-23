@@ -32,7 +32,8 @@ const Players = () => {
         const [leagues, setLeagues] = useState([]);
         const [players, setPlayers] = useState([]);
    
-   
+        const base = "https://boiling-caverns-15602.herokuapp.com";
+
         const [data, setData] = useState({
             firstname: '',
             lastName: '',
@@ -63,7 +64,7 @@ const Players = () => {
        const [id, setId] = useState('');
 
     const getLeagues = () => {
-        axios.get('http://localhost:3001/leagues/')
+        axios.get(`${base}/leagues/`)
         .then(response => {
             
             setLeagues(
@@ -80,7 +81,7 @@ const Players = () => {
 
         const league = value + " ASL";
 
-        axios.get(`http://localhost:3001/clubs/league/${league}`)
+        axios.get(`${base}/clubs/league/${league}`)
         .then(response => {
 
             setClubs(
@@ -122,7 +123,7 @@ const Players = () => {
         console.log(data);
 
         if((firstname !== '' && lastname !== '')){
-            axios.get(`http://localhost:3001/players/${firstname}/${lastname}`)
+            axios.get(`${base}/players/${firstname}/${lastname}`)
             .then(response => {
                 const newData = response.data.sort((a, b) => { return (a.firstname > b.firstname) ? 1 : -1});
                 setPlayers(newData);
@@ -130,7 +131,7 @@ const Players = () => {
             .catch(err => console.log(err))
         }else if((club !== '' && club !== 'Select Club') && (firstname === '' && lastname === '')){
             getValue();
-            axios.get(`http://localhost:3001/players/${club}`)
+            axios.get(`${base}players/${club}`)
             .then(response => {
                 const newData = response.data.sort((a, b) => { return (a.firstname > b.firstname) ? 1 : -1});
                 setPlayers(newData);
@@ -139,7 +140,7 @@ const Players = () => {
             .catch(err => console.log("Err: ", err))
         }else if((firstname !== '' && lastname === '') && (club === 'Select Club' || club === '')){
             getValue();
-            axios.get(`http://localhost:3001/players/firstname/${firstname}`)
+            axios.get(`${base}/players/firstname/${firstname}`)
             .then(response => {
                 const newData = response.data.sort((a, b) => { return (a.firstname > b.firstname) ? 1 : -1});
                 setPlayers(newData);
@@ -148,7 +149,7 @@ const Players = () => {
             .catch(err => console.log("Err: ", err))
         }else if((firstname === '' && lastname !== '') && (club === 'Select Club' || club === '')){
             getValue();
-            axios.get(`http://localhost:3001/players/lastname/${lastname}`)
+            axios.get(`${base}/players/lastname/${lastname}`)
             .then(response => {
                 const newData = response.data.sort((a, b) => { return (a.lastname > b.lastname) ? 1 : -1});
                 setPlayers(newData);
@@ -175,7 +176,7 @@ const Players = () => {
             'phone': phone
          };
         console.log(data);
-        axios.post('http://localhost:3001/players/', newData)
+        axios.post(`${base}/players/`, newData)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     }
@@ -186,7 +187,7 @@ const Players = () => {
         "newHeight": height, "newWeight":weight, "newEmail": email, "newPhone":phone, "_id": id};
 
         console.log(player);
-        axios.put(`http://localhost:3001/players/update/${id}`, player)
+        axios.put(`${base}/players/update/${id}`, player)
         .then(res => {
             console.log("player updated")
         }).catch(err => console.log("ErRoR DeTeCtEd p: ", err))
@@ -218,7 +219,7 @@ const Players = () => {
         const newPlayers = players.filter(p => p._id !== id);
             setPlayers(newPlayers);
 
-            axios.delete(`http://localhost:3001/players/${id}`)
+            axios.delete(`${base}/players/${id}`)
             .then(res => {
                 console.log(" deleted from database: ", id);
             })

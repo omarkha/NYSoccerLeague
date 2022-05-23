@@ -15,6 +15,7 @@ const Clubs = () => {
         }
     );
 
+    const base = "https://boiling-caverns-15602.herokuapp.com";
 
     const [name, setName] = useState('');
     const [county, setCounty] = useState('Select County');
@@ -25,7 +26,7 @@ const Clubs = () => {
     const [clubs, setClubs] = useState([]);
 
     const getLeagues = () => {
-        axios.get('http://localhost:3001/leagues/')
+        axios.get(`${base}/leagues/`)
         .then(response => {
             
             setCounties(
@@ -44,7 +45,7 @@ const Clubs = () => {
         if(county !== 'Select County' && name === '' && city === ''){
 
             const league = county + " ASL";
-            axios.get(`http://localhost:3001/clubs/league/${league}`)
+            axios.get(`${base}/clubs/league/${league}`)
             .then(res => {
                 const newData = res.data.sort((a, b) => { return (a.name > b.name) ? 1 : -1});
                 setClubs(newData);
@@ -53,7 +54,7 @@ const Clubs = () => {
             .catch(err => console.log("Err: ", err))
         }else if(name !== '' && county === 'Select County' && city === ''){
             
-            axios.get(`http://localhost:3001/clubs/name/${name}`)
+            axios.get(`${base}/clubs/name/${name}`)
             .then(res => {
                 const newData = res.data.sort((a, b) => { return (a.name > b.name) ? 1 : -1});
                 setClubs(newData);
@@ -62,7 +63,7 @@ const Clubs = () => {
             .catch(err => console.log("Err: ", err))
         }else if(name === '' && county === 'Select County' && city !== ''){
             
-            axios.get(`http://localhost:3001/clubs/city/${city}`)
+            axios.get(`${base}/clubs/city/${city}`)
             .then(res => {
                 const newData = res.data.sort((a, b) => { return (a.city > b.city) ? 1 : -1});
                 setClubs(newData);
@@ -72,7 +73,7 @@ const Clubs = () => {
         }else if(name !== '' && county === 'Select County' && city !== ''){
             console.log("city : " + city + ", name : " + name);
             const club = {'name': name, 'city': city};
-            axios.get(`http://localhost:3001/clubs/city&name/${city}/${name}`)
+            axios.get(`${base}/clubs/city&name/${city}/${name}`)
             .then(res => {
                 const newData = res.data.sort((a, b) => { return (a.name > b.name) ? 1 : -1});
                 setClubs(newData);
@@ -100,7 +101,7 @@ const Clubs = () => {
         };
 
         console.log(data);
-        axios.post('http://localhost:3001/clubs', club)
+        axios.post(`${base}clubs`, club)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     }
@@ -109,7 +110,7 @@ const Clubs = () => {
         const newClubs = clubs.filter(club => club._id !== id);
             setClubs(newClubs);
 
-            axios.delete(`http://localhost:3001/clubs/${id}`)
+            axios.delete(`${base}/clubs/${id}`)
             .then(res => {
                 console.log(" deleted from database: ", id);
             })
@@ -125,7 +126,7 @@ const Clubs = () => {
     const handleUpdate = () => {
         const club = {"newName": name, "newCounty": county, "newLeague": county, "newCity": city, "_id": id};
         console.log(club);
-        axios.put(`http://localhost:3001/clubs/update/${id}`, club)
+        axios.put(`${base}/clubs/update/${id}`, club)
         .then(res => {
             console.log("club updated")
         }).catch(err => console.log("ErRoR DeTeCtEd: ", err))
