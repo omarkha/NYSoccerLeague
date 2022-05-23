@@ -76,7 +76,7 @@ const Leagues = () => {
 
     const [leagues, setLeagues] = useState([]);
     
-        const base = "https://boiling-caverns-15602.herokuapp.com";
+        const base = "https://soccerleagues.herokuapp.com";
 
     let returned = [];
 
@@ -88,7 +88,7 @@ const Leagues = () => {
         const handleAdd = () => {   
             const league = {county: selectedCounty};
             console.log(league);
-            axios.post(`${uri}/leagues`, league)
+            axios.post(`${base}/leagues`, league)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
         }
@@ -107,7 +107,7 @@ const Leagues = () => {
             }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
                 axios.get(`${base}/leagues/findone/${selectedCounty}`)
                 .then(res => {
-                    const newData = response.data.sort((a, b) => { return (a.lastname > b.lastname) ? 1 : -1});
+                    const newData = response.data.sort((a, b) => { return (a.county > b.county) ? 1 : -1});
                     setLeagues(newData);
                     console.log(leagues)
                
