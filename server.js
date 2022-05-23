@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }))
 
 require('dotenv').config() // Add this line
 
-let dbUrl = process.env.NODE_ENV === 'production' ? "https://boiling-caverns-15602.herokuapp.com" : 'mongodb://127.0.0.1:27017/test'
+let dbUrl = process.env.NODE_ENV === 'production' ? "mongodb+srv://Copyres:Soridl846@cluster0.ohmco.mongodb.net/test?retryWrites=true&w=majority" : 'mongodb://127.0.0.1:27017/test'
 
 mongoose
   .connect(dbUrl)
