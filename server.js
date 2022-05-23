@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const db = require('./db');
+require('./db/index.js');
 const clubController = require('./controllers/clubControllers.js');
 const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 require('dotenv').config() 
-
 
 __dirname = path.resolve();
 
