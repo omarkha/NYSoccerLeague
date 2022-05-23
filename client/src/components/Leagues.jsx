@@ -76,7 +76,7 @@ const Leagues = () => {
 
     const [leagues, setLeagues] = useState([]);
     
-        const uri = process.env.MONGODB_URI;
+        const uri = "https://boiling-caverns-15602.herokuapp.com";
 
     let returned = [];
 
