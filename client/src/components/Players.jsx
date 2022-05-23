@@ -32,7 +32,7 @@ const Players = () => {
         const [leagues, setLeagues] = useState([]);
         const [players, setPlayers] = useState([]);
    
-        const base = "https://boiling-caverns-15602.herokuapp.com";
+        const base = "https://soccerleagues.herokuapp.com";
 
         const [data, setData] = useState({
             firstname: '',
@@ -83,9 +83,9 @@ const Players = () => {
 
         axios.get(`${base}/clubs/league/${league}`)
         .then(response => {
-
+            const newData = response.data.sort((a, b) => { return (a.name > b.name) ? 1 : -1});
             setClubs(
-                response.data.map((e, i) => e.name)
+                newData.map((e, i) => e.name)
             );
 
             console.log(clubs);

@@ -15,7 +15,7 @@ const Clubs = () => {
         }
     );
 
-    const base = "https://boiling-caverns-15602.herokuapp.com";
+    const base = "https://soccerleagues.herokuapp.com";
 
     const [name, setName] = useState('');
     const [county, setCounty] = useState('Select County');
@@ -28,9 +28,9 @@ const Clubs = () => {
     const getLeagues = () => {
         axios.get(`${base}/leagues/`)
         .then(response => {
-            
+            const newData = response.data.sort((a, b) => { return (a.county > b.county) ? 1 : -1});
             setCounties(
-                response.data.map((e, i) => e.county)
+                newData.map((e, i) => e.county)
             );
         })
         .catch(err => console.log("rr: ",err))

@@ -76,7 +76,7 @@ const Leagues = () => {
 
     const [leagues, setLeagues] = useState([]);
     
-        const uri = "https://boiling-caverns-15602.herokuapp.com";
+        const base = "https://boiling-caverns-15602.herokuapp.com";
 
     let returned = [];
 
@@ -96,19 +96,19 @@ const Leagues = () => {
         const handleSearch = (a) => {
             getValue();
             if(selectedCounty === "All Leagues"){
-                axios.get(`${uri}/leagues`)
+                axios.get(`${base}/leagues`)
                 .then(res => {
-                    
+                    const newData = response.data.sort((a, b) => { return (a.lastname > b.lastname) ? 1 : -1});
                     console.log("123123123 ++ ");
-                    setLeagues(res.data);
+                    setLeagues(newData);
                     console.log(leagues);
                 })
                 .catch(err => console.log("Err: ", err))
             }else if(selectedCounty !== "All Leagues" && selectedCounty !== "Select County"){
-                axios.get(`${uri}/leagues/findone/${selectedCounty}`)
+                axios.get(`${base}/leagues/findone/${selectedCounty}`)
                 .then(res => {
-                    
-                    setLeagues(res.data);
+                    const newData = response.data.sort((a, b) => { return (a.lastname > b.lastname) ? 1 : -1});
+                    setLeagues(newData);
                     console.log(leagues)
                
                 })
@@ -122,7 +122,7 @@ const Leagues = () => {
             const newLeagues = leagues.filter(league => league._id !== id);
             setLeagues(newLeagues);
 
-            axios.delete(`https://boiling-caverns-15602.herokuapp.com/leagues/${id}`)
+            axios.delete(`${base}leagues/${id}`)
             .then(res => {
                 console.log(" deleted from database: ", id);
             })
