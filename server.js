@@ -17,7 +17,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://Copyres:Soridl846@Cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
+  const collection = client.db("ASL-DataBase").collection("devices");
   // perform actions on the collection object
   client.close();
 });
@@ -29,6 +29,10 @@ if(process.env.NODE_ENV === "production"){
 
   app.get('*', (req,res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  })
+}else{
+  app.get((req, res) => {
+    res.send("Api running");
   })
 }
 
