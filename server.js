@@ -13,14 +13,6 @@ const app = express();
 
 require('dotenv').config() 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Copyres:Soridl846@Cluster0.ohmco.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("ASL-DataBase").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
 
 __dirname = path.resolve();
 
