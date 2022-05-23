@@ -131,7 +131,7 @@ const Players = () => {
             .catch(err => console.log(err))
         }else if((club !== '' && club !== 'Select Club') && (firstname === '' && lastname === '')){
             getValue();
-            axios.get(`${base}players/${club}`)
+            axios.get(`${base}/players/${club}`)
             .then(response => {
                 const newData = response.data.sort((a, b) => { return (a.firstname > b.firstname) ? 1 : -1});
                 setPlayers(newData);
