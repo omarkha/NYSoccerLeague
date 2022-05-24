@@ -2,7 +2,7 @@ const league = require('../models/league.model');
 
 
 const getLeagues = ('/leagues', (req, res, next) => {
-    League.find()
+    league.find()
     .then(leagues => res.json(leagues))
     .catch(err => res.status(400).json("Error: " + err));
     next();
@@ -11,9 +11,9 @@ const getLeagues = ('/leagues', (req, res, next) => {
 
 const postLeague = ('/leagues', (req, res) => {
 
-    const league = new League(req.body);
+    const lig = new league(req.body);
   
-    league.save()
+    lig.save()
     .then((result) => {
       console.log("league added!");
     })
@@ -26,9 +26,9 @@ const findByCounty = ('/leagues/findone/:county', async (req, res) => {
       const county_encode = req.params.county;
       county_encode.replace("&20", " ");
       console.log(county_encode);
-      const league = await League.find({county: county_encode})
-      if (!league) throw Error('couty not found')
-      res.json(league)
+      const lig = await league.find({county: county_encode})
+      if (!lig) throw Error('couty not found')
+      res.json(lig)
     } catch (e) {
       console.log(e)
       res.send('county not found!')
@@ -40,9 +40,9 @@ const deleteById = ('/leagues/:id', async (req, res) => {
     try {
   
       const id = req.params.id;
-      const league = await League.findByIdAndRemove(id)
-      if (!league) throw Error('couty not found')
-      res.json(league)
+      const lig = await league.findByIdAndRemove(id)
+      if (!lig) throw Error('couty not found')
+      res.json(lig)
     } catch (e) {
       console.log(e)
       res.send('county not found!')
