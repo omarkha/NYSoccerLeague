@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
-const clubController = require('./controllers/clubControllers.js');
+const leagueController = require('./controllers/leagueController.js');
 const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
 const res = require('express/lib/response');
@@ -23,6 +23,7 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/client/build`))
 app.use(express.urlencoded({ extended: false }))
 app.use(leagueRoutes);
+
 
 require('dotenv').config() // Add this line
 
