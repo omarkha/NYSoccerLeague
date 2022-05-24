@@ -1,7 +1,7 @@
 const league = require('../models/league.model');
 
 
-const getLeagues = ('/leagues').get((req, res, next) => {
+const getLeagues = ('/leagues', (req, res, next) => {
     League.find()
     .then(leagues => res.json(leagues))
     .catch(err => res.status(400).json("Error: " + err));
