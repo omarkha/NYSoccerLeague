@@ -8,7 +8,7 @@ const res = require('express/lib/response');
 const path = require("path");
 const leagueRoutes = require("./routes/leagues");
 const clubRoutes = require("./routes/clubs");
-
+const playerRoutes = require("./routes/players");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -25,6 +25,7 @@ app.use(express.static(`${__dirname}/client/build`))
 app.use(express.urlencoded({ extended: false }))
 app.use(leagueRoutes);
 app.use(clubRoutes);
+app.use(playerRoutes);
 
 require('dotenv').config() // Add this line
 
