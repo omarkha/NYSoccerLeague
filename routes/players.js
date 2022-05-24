@@ -41,39 +41,118 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').get((req, res) => {
-    Player.findById(req.params.id)
-    .then(player => res.json(player))
-    .catch(error => res.status(400).json('Error: ' + error));
-});
 
-router.route('/:id').delete((req, res) => {
-    Player.findByIdAndDelete(req.params.id)
-    .then(() => res.json('player deleted!'))
-    .catch(error => res.status(400).json('Error: ' + error));
-});
-
-router.route('update/:id').post((req, res) => {
-    Player.findById(req.params.id)
-    .then(player => {
-        player.firstname = req.body.firstname;
-        player.lastname = req.body.lastname;
-        player.county = req.body.county;
-        player.city = req.body.city;
-        player.club = req.body.club;
-        player.foot = req.body.foot;
-        player.age = Number(req.body.age);
-        player.weight = req.body.weight;
-        player.height = req.body.height;
-        player.position = req.body.position;
-        player.email = req.body.email;
-        player.phone = req.body.phone;
-
-        player.save()
-        .then(() => {res.json('player updated')})
-        .catch(err => {res.status(400).json('Error: ' + err)})
+app.get('/players', async (req, res) => {
+    try{
+    const players = await Player.find()
+    res.json(players)
+    }catch(e){
+      console.log(e)
+      res.send('leagues not found!')
+    }
+  })
+  
+  
+  app.get('/players/:club', async (req, res) => {
+    try{
+    const players = await Player.find({club: req.params.club})
+    res.send(JSON.stringify(players))
+    }catch(e){
+      console.log(e)
+      res.send('leagues not found!')
+    }
+  })
+  
+  app.get('/players/:firstname/:lastname', async (req, res) => {
+    try{
+    const players = await Player.find({firstname: req.params.firstname, lastname:req.params.lastname})
+    res.send(JSON.stringify(players))
+    }catch(e){
+      console.log(e)
+      res.send('leagues not found!')
+    }
+  })
+  
+  app.get('/players/lastname/:lastname', async (req, res) => {
+    try{
+    const players = await Player.find({lastname:req.params.lastname})
+    res.send(JSON.stringify(players))
+    }catch(e){
+      console.log(e)
+      res.send('leagues not found!')
+    }
+  })
+  
+  app.get('/players/firstname/:firstname', async (req, res) => {
+    try{
+    const players = await Player.find({firstname: req.params.firstname})
+    res.send(JSON.stringify(players))
+    }catch(e){
+      console.log(e)
+      res.send('leagues not found!')
+    }
+  })
+  
+  
+  app.delete('/players/:id', async (req, res) => {
+    try {
+  
+      const id = req.params.id;
+      const player = await Player.findByIdAndRemove(id)
+      if (!player) throw Error('couty not found')
+      res.json(player)
+    } catch (e) {
+      console.log(e)
+      res.send('player not found!')
+    }
+  })
+  
+  
+  app.put('/players/update/:id', (req, res) => {
+    
+    const newFirstname = req.body.newFirstname
+    const newLastname = req.body.newLastname;
+    const newCounty = req.body.newCounty;
+    const newClub = req.body.newClub;
+    const newAge = req.body.newAge;
+    const newPosition = req.body.newPosition;
+    const newWeight = req.body.newWeight;
+    const newHeight = req.body.newHeight;
+    const newEmail = req.body.newEmail;
+    const newPhone = req.body.newPhone;
+    const newFoot = req.body.newFoot;
+    const id = req.params.id;
+  
+  try{
+     Player.findById(id, (err, newPlayer) => {
+      newPlayer.firstname = newFirstname;
+      newPlayer.lastname = newLastname;
+      newPlayer.county = newCounty;
+      newPlayer.club = newClub;
+      newPlayer.age = newAge;
+      newPlayer.position = newPosition;
+      newPlayer.weight = newWeight;
+      newPlayer.height = newHeight;
+      newPlayer.email = newEmail;
+      newPlayer.phone = newPhone;
+      newPlayer.foot = newFoot;
+      newPlayer.save();
+      res.send("updated");
     })
-    .catch(error => res.status(400).json('Error: ' + error));
-});
+  }catch(e){
+    console.log(e);
+    res.send("worky.. not");
+  }
+  })
 
+  app.post('/players', (req, res) => {
+    const player = new Player(req.body);
+    player.save()
+    .then((result) => {
+        console.log("Club added!");
+    })
+    .catch(err => console.log("error: ", err))
+  })
+  
+  
 module.exports = router;
