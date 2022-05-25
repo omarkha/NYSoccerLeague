@@ -3,8 +3,8 @@ let Club = require('../models/club.model');
 const clubController = require('../controllers/clubControllers');
 const mongoose = require('mongoose');
 
-router.post('/clubs', clubController.getClubs);
-router.get('/clubs', clubController.postClub);
+router.post('/clubs', clubController.postClub);
+router.get('/clubs', clubController.getClubs);
 router.get('/clubs/city&name/:city/:name', clubController.findByCityAndName);
 router.get('/clubs/league/:league', clubController.findByLeague);
 router.get('/clubs/city/:city', clubController.findByCity);

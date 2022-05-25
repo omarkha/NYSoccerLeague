@@ -39,9 +39,9 @@ const findByCityAndName = ('/clubs/city&name/:city/:name', async (req, res) => {
         const club = new Club();
         club.name = req.body.name
         club.city = req.body.city
-        club.league = req.body.league;
-        club.county = req.body.county;
-        
+        club.league = req.body.league
+        club.county = req.body.county
+
         club.save()
         .then((result) => {
       console.log("Club added!");
