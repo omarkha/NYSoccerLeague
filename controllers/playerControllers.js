@@ -114,7 +114,7 @@ const deleteById = ('/players/:id', async (req, res) => {
     const newEmail = req.body.newEmail;
     const newPhone = req.body.newPhone;
     const newFoot = req.body.newFoot;
-    const id = req.body.id;
+    const id = req.body._id;
   
   try{
      Player.findById(id, (err, newPlayer) => {

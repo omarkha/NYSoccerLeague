@@ -10,7 +10,7 @@ router.get('/players/:firstname/:lastname', playerController.getByFirstAndLastNa
 router.get('/players/firstname/:firstname', playerController.getByFirstname);
 router.get('/players/lastname/:lastname', playerController.getByLastname);
 router.delete('/players/:id', playerController.deleteById);
-router.get('/players/:id', playerController.updateById);
+router.put('/players/update/:id', playerController.updateById);
   
 module.exports = router;
 
