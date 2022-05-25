@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <div className='header'>
             <a href="./"><img className="logo" alt="" src={Images.logo} />
-            <h1>GreenStars Amateur Soccer League</h1></a>
+            <h1> GreenStar Soccer League</h1></a>
         </div>
     )
 }
