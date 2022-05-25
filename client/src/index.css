@@ -255,19 +255,19 @@ h4 {
 	margin-top:34px;
 	overflow: scroll;
 	height: 500px;
-	background-color: rgb(15, 38, 15);
+	background-color: rgb(25,25,0);
 	border: 3px solid rgb(63, 63, 25);
 	border-radius: 21px;
 }
 
 .results-header {
-	background-color: rgb(63, 63, 25);
+	background-color: rgb(97, 97, 25);
 	padding: 3px 0 3px 0;
 	
 }
 
 .results-header h3 {
-	color: rgb(25, 25, 25);
+	color: rgb(215,215,215);
 
 }
 
