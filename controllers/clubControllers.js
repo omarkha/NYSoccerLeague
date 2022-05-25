@@ -3,7 +3,7 @@ const Club = require('../models/club.model');
 
 
 
-  const getClubs = ('/', async (req, res, next) => {
+  const getClubs = ('/clubs', async (req, res, next) => {
     try{
     const club = await Club.find()
     res.json(club)
@@ -36,7 +36,12 @@ const findByCityAndName = ('/clubs/city&name/:city/:name', async (req, res) => {
     })
 
     const postClub = ('/clubs', (req, res) => {
-        const club = new Club(req.body);
+        const club = new Club();
+        club.name = req.body.name
+        club.city = req.body.city
+        club.league = req.body.league;
+        club.county = req.body.county;
+        
         club.save()
         .then((result) => {
       console.log("Club added!");
