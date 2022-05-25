@@ -104,11 +104,13 @@ footer p {
 
 .home p {
 	margin:34px 101px;
+	color: rgb(160,160,160);
 }
 
 .home img {
 	border-radius: 21px;
 	margin: 55px;
+	filter: saturate(0.5);
 }
 
 p {
@@ -231,7 +233,7 @@ button:active {
 }
 
 h3 {
-	color: rgb(96, 160, 63);
+	color: rgb(160,160,25);
 	letter-spacing: 5px;
 }
 
