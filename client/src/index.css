@@ -271,7 +271,7 @@ h4 {
 }
 
 .result {
-	background-color: rgb(55, 89, 34);
+	background-color: rgb(10, 25, 10);
 	opacity: 0.9;
 	width: 90%;
 	margin: 8px auto;
@@ -290,7 +290,7 @@ span {
 }
 
 .result h3 {
-	color: rgb(25, 25, 25);
+	color: rgb(255,255,160);
 }
 
 .club-input-button {
