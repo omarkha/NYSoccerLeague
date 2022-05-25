@@ -101,7 +101,7 @@ const Clubs = () => {
         };
 
         console.log(data);
-        axios.post(`${base}clubs`, club)
+        axios.post(`${base}/clubs`, club)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
     }
