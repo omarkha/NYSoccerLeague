@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Club from "./Club";
 import DropMenu from "./DropMenu";
 import axios from 'axios';
+import read from "body-parser/lib/read";
 
 const Clubs = () => {
 
@@ -27,7 +28,7 @@ const Clubs = () => {
     const [email, setEmail] = useState('');
     const [image, setImage] = useState('');
     const [url, setUrl] = useState('');
-    const [fileData, setFileData] = useState();
+    const [file, setFile] = useState();
     const [id, setId] = useState('');
     const [counties, setCounties] = useState(['']);
 
@@ -102,37 +103,42 @@ const Clubs = () => {
         setCounty(value);
     }
 
+    const postImage = async (e) => {
+        const reader = new FormData();
+        reader.append('file',e)
+        reader.append('upload_preset', 'soccerleague');
+        try{
+        const res = await axios.post(CLOUDINARY_URL, reader)
+        const img = await res.data.url;
+        setUrl(img);
+        }catch(err){
+            console.log(err);
+        }
+    }
     
        
     const handleAdd = () => {
 
-        const fdata = new FormData();
+        postImage();
 
-        fdata.append('file', image)
-        fdata.append("upload_preset","soccerleague")
-        fdata.append("cloud_name","copyres");
-         fetch(CLOUDINARY_URL, 
-            {method: "post", body: fdata})
-         .then(res => res.json())
-         .then(data => setUrl(data.url))
-         .catch(err => console.log(err))
-    
-
-        setData({name: name, county: county, city: city, email: email, phone: phone, image: url});
+                 setData({name: name, county: county, city: city, email: email, phone: phone, img_url: url});
         const club = {
-            name: name,
-            county: county,
-            city: city,
-            league: county+" ASL",
-            email: email,
-            phone: phone,
-            image: url
+            'name': name,
+            'county': county,
+            'city': city,
+            'league': county+" ASL",
+            'email': email,
+            'phone': phone,
+            'img_url': url
         };
 
         console.log(data);
         axios.post(`${base}/clubs`, club)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
+             
+
+        
     }
 
     const handleDelete = (id, county, city) => {
@@ -151,12 +157,12 @@ const Clubs = () => {
         setCity(xcity);
         setEmail(xemail);
         setPhone(xphone);
-        setImage(ximage);
+        setUrl(ximage);
         setId(xid);
     }
 
     const handleUpdate = () => {
-        const club = {"newName": name, "newCounty": county, "newLeague": county, "newCity": city, "newEmail": email, "newPhone": phone, "newImage": image, "_id": id};
+        const club = {"newName": name, "newCounty": county, "newLeague": county, "newCity": city, "newEmail": email, "newPhone": phone, "newImg_url": url, "_id": id};
         console.log(club);
         axios.put(`${base}/clubs/update/${id}`, club)
         .then(res => {
@@ -181,8 +187,8 @@ const Clubs = () => {
                 <div class="filepicker-div">
 
                         <label class="filepicker">
-                     <input type="file" name="logoImage" onChange={(e) => {
-                         setImage(e.target.files[0])
+                     <input type="file" name="img_url" onChange={(e) => {
+                         postImage(e.target.files[0])
                         
                      }} />
                     Upload Logo
@@ -199,7 +205,7 @@ const Clubs = () => {
             </div>
             <div className="results">
             <div className="results-header"> <h3>Clubs</h3></div>
-                { clubs.map((club) => <Club handleModify={handleModify} handleDelete={handleDelete}clubname={club.name} clubcity={club.city} clubcounty={club.county} clubphone={club.phone} clubemail={club.email} clubimage={club.image} key={club._id} id={club._id}/>)}
+                { clubs.map((club) => <Club handleModify={handleModify} handleDelete={handleDelete} clubname={club.name} clubcity={club.city} clubcounty={club.county} clubphone={club.phone} clubemail={club.email} cluburl={club.img_url} key={club._id} id={club._id}/>)}
                
             </div>
         </div>

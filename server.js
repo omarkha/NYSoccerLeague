@@ -4,9 +4,11 @@ const mongoose = require("mongoose");
 const morgan = require('morgan');
 const res = require('express/lib/response');
 const path = require("path");
+
 const leagueRoutes = require("./routes/leagues");
 const clubRoutes = require("./routes/clubs");
 const playerRoutes = require("./routes/players");
+
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -43,6 +45,36 @@ const db = mongoose.connection;
 
 ////////// 
 
+app.get('/api/images', async (req, res) => {
+  const { resources } = await cloudinary.search.expression('folder:soccerleague')
+  .sort_by('public_id', 'desc')
+  .max_results(30)
+  .execute();
+  const publicIds = resources.map( file => file.public_id) 
+})
+
+const cloudinary = require('cloudinary');
+cloudinary.config(
+    {
+        cloud_name: process.env.CLOUDINARY_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
+    }
+)
+app.post('/api/upload', async (req, res) => {
+  try{
+      const fileStr = req.body.data;
+      const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+        upload_preset: 'soccerleague'
+      })
+      console.log(uploadedResponse)
+      res.json({msg: "gucci"})
+
+  }catch(err){
+      console.log(err);
+  }
+
+})
 //////////
 
 app.get('/*', (req, res) => {

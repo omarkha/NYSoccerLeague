@@ -10,7 +10,7 @@ const clubSchema = new Schema({
     league: {type: String, ref: "League"},
     email: {type: String},
     phone: {type: String},
-    logoImage: {type: String}
+    img_url: {type: String},
 
 }, {timestamps: true});
 

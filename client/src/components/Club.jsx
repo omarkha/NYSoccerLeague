@@ -1,12 +1,14 @@
 import React from "react";
 
-const Club = ({handleDelete, handleModify, clubname, clubcounty, clubcity, clubemail, clubphone, clubimage, id}) => {
+const Club = ({handleDelete, handleModify, clubname, clubcounty, clubcity, clubemail, clubphone, cluburl, id}) => {
     return (
         <div className="result">
 
-            <div className="result-image">
-                <img src={clubimage} alt={clubname} />
+            <div className="result-div">
+                <img src={cluburl} alt={clubname} key={'img'+id}/>
             </div>
+                
+
             <div className="result-info">
                 <h3>{clubname}</h3>
                 <p>{clubcounty}, {clubcity}<br/>
@@ -16,8 +18,10 @@ const Club = ({handleDelete, handleModify, clubname, clubcounty, clubcity, clube
                 {clubphone}
                 </p>
             </div>
-            <button onClick={() => handleModify(clubname, clubcounty, clubcity, clubemail, clubphone, id)}>modify</button>
+            <div className="result-buttons">
+            <button onClick={() => handleModify(clubname, clubcounty, clubcity, clubemail, clubphone, cluburl, id)}>modify</button>
             <button onClick={() => {handleDelete(id, clubcounty, clubcity)}}>remove</button>
+            </div>
         </div>
     )
 }
