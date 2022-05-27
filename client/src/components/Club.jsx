@@ -4,8 +4,7 @@ const Club = ({handleDelete, handleModify, clubname, clubcounty, clubcity, clube
     return (
         <div className="result">
             <h3>{clubname}</h3>
-            <p>{clubcounty} <br/>
-            {clubcity}
+            <p>{clubcounty}, {clubcity}<br/>
             <br/>
             {clubemail}
             <br />
