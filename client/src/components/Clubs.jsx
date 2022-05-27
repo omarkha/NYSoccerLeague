@@ -4,8 +4,9 @@ import Club from "./Club";
 import DropMenu from "./DropMenu";
 import axios from 'axios';
 
-
 const Clubs = () => {
+
+    const CLOUDINARY_URL="https://api.cloudinary.com/v1_1/copyres/image/upload";
 
     const [data,setData] = useState(
         {
@@ -24,6 +25,9 @@ const Clubs = () => {
     const [city, setCity] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
+    const [image, setImage] = useState('');
+    const [url, setUrl] = useState('');
+    const [fileData, setFileData] = useState();
     const [id, setId] = useState('');
     const [counties, setCounties] = useState(['']);
 
@@ -91,21 +95,38 @@ const Clubs = () => {
         setCity('');
         setPhone('');
         setEmail('');
+        setImage('');
     }
 
     const getValue = (value, id) =>{
         setCounty(value);
     }
 
+    
+       
     const handleAdd = () => {
-        setData({name: name, county: county, city: city, email: email, phone: phone});
+
+        const fdata = new FormData();
+
+        fdata.append('file', image)
+        fdata.append("upload_preset","soccerleague")
+        fdata.append("cloud_name","copyres");
+         fetch(CLOUDINARY_URL, 
+            {method: "post", body: fdata})
+         .then(res => res.json())
+         .then(data => setUrl(data.url))
+         .catch(err => console.log(err))
+    
+
+        setData({name: name, county: county, city: city, email: email, phone: phone, image: url});
         const club = {
             name: name,
             county: county,
             city: city,
             league: county+" ASL",
             email: email,
-            phone: phone
+            phone: phone,
+            image: url
         };
 
         console.log(data);
@@ -124,17 +145,18 @@ const Clubs = () => {
             })
             .catch(err => console.log(err))
     }
-    const handleModify = (xname, xcounty, xcity, xemail, xphone, xid) => {
+    const handleModify = (xname, xcounty, xcity, xemail, xphone, ximage, xid) => {
         setName(xname);
         setCounty(xcounty);
         setCity(xcity);
         setEmail(xemail);
         setPhone(xphone);
+        setImage(ximage);
         setId(xid);
     }
 
     const handleUpdate = () => {
-        const club = {"newName": name, "newCounty": county, "newLeague": county, "newCity": city, "newEmail": email, "newPhone": phone, "_id": id};
+        const club = {"newName": name, "newCounty": county, "newLeague": county, "newCity": city, "newEmail": email, "newPhone": phone, "newImage": image, "_id": id};
         console.log(club);
         axios.put(`${base}/clubs/update/${id}`, club)
         .then(res => {
@@ -156,15 +178,28 @@ const Clubs = () => {
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" id="clubemail" />
                 <label>Phone Number </label>
                 <input value={phone} onChange={(e) => setPhone(e.target.value)} type="text" id="clubphone" />
+                <div class="filepicker-div">
+
+                        <label class="filepicker">
+                     <input type="file" name="logoImage" onChange={(e) => {
+                         setImage(e.target.files[0])
+                        
+                     }} />
+                    Upload Logo
+                    
+                </label>
+
+                
+                </div>
                 <div className="buttons">
                 <button className="club-input-button" onClick={handleSearch}>Search</button>
-                <button className="club-input-button" onClick={handleAdd}>Add</button>
                 <button className="club-input-button" onClick={handleUpdate}>Update</button>
+                <button className="club-input-button" onClick={handleAdd}>Add</button>
                 </div>
             </div>
             <div className="results">
             <div className="results-header"> <h3>Clubs</h3></div>
-                { clubs.map((club) => <Club handleModify={handleModify} handleDelete={handleDelete}clubname={club.name} clubcity={club.city} clubcounty={club.county} clubphone={club.phone} clubemail={club.email} key={club._id} id={club._id}/>)}
+                { clubs.map((club) => <Club handleModify={handleModify} handleDelete={handleDelete}clubname={club.name} clubcity={club.city} clubcounty={club.county} clubphone={club.phone} clubemail={club.email} clubimage={club.image} key={club._id} id={club._id}/>)}
                
             </div>
         </div>

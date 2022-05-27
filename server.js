@@ -41,11 +41,9 @@ mongoose.set('debug', true)
 const db = mongoose.connection;
 
 
+////////// 
 
-// await Leagie.find
-
-
-
+//////////
 
 app.get('/*', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`)

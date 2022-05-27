@@ -210,7 +210,30 @@ a:hover {
 .buttons {
 	margin-top: 34px;
 }
+.filepicker {
+	color: rgb(160, 225, 225);
+	margin-top: 21px;
+	height: 27px;
+	background-color: rgb(15, 80, 80);
+	border: 1px solid rgb(40, 160, 160);
+	border-radius: 13px;
+	width: 144px;
+	letter-spacing: 3px;
+	padding:5px 55px 5px 55px;
+}
 
+.filepicker:active {
+	background-color: rgb(25, 101, 255);
+}
+
+.filepicker-div {
+	margin:21px;
+}
+
+input[type="file"] {
+	display: none;
+	width: 144px;
+}
 button {
 	color: rgb(225, 225, 160);
 	margin: 13px;
