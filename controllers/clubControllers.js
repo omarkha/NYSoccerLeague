@@ -93,8 +93,8 @@ const updateById = ('/clubs/update/:id', (req, res) => {
     const newCity = req.body.newCity;
     const newCounty = req.body.newCounty;
     const newLeague = req.body.newLeague + " ASL";
-    const newEmail = req.body.email;
-    const newPhone = req.body.phone;
+    const newEmail = req.body.newEmail;
+    const newPhone = req.body.newPhone;
     const id = req.params.id;
   
   try{
