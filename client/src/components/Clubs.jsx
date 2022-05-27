@@ -89,6 +89,8 @@ const Clubs = () => {
         setCounty('Select County');
         setName('');
         setCity('');
+        setPhone('');
+        setEmail('');
     }
 
     const getValue = (value, id) =>{
