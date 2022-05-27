@@ -12,6 +12,8 @@ const Clubs = () => {
             name: '',
             county: '',
             city: '',
+            email: '',
+            phone: ''
         }
     );
 
@@ -20,6 +22,8 @@ const Clubs = () => {
     const [name, setName] = useState('');
     const [county, setCounty] = useState('Select County');
     const [city, setCity] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [id, setId] = useState('');
     const [counties, setCounties] = useState(['']);
 
@@ -92,12 +96,14 @@ const Clubs = () => {
     }
 
     const handleAdd = () => {
-        setData({name: name, county: county, city: city});
+        setData({name: name, county: county, city: city, email: email, phone: phone});
         const club = {
             name: name,
             county: county,
             city: city,
             league: county+" ASL",
+            email: email,
+            phone: phone
         };
 
         console.log(data);
@@ -116,15 +122,17 @@ const Clubs = () => {
             })
             .catch(err => console.log(err))
     }
-    const handleModify = (xname, xcounty, xcity, xid) => {
+    const handleModify = (xname, xcounty, xcity, xemail, xphone, xid) => {
         setName(xname);
         setCounty(xcounty);
         setCity(xcity);
+        setEmail(xemail);
+        setPhone(xphone);
         setId(xid);
     }
 
     const handleUpdate = () => {
-        const club = {"newName": name, "newCounty": county, "newLeague": county, "newCity": city, "_id": id};
+        const club = {"newName": name, "newCounty": county, "newLeague": county, "newCity": city, "newEmail": email, "newPhone": phone, "_id": id};
         console.log(club);
         axios.put(`${base}/clubs/update/${id}`, club)
         .then(res => {
@@ -138,10 +146,14 @@ const Clubs = () => {
             <div className="club-input">
             <label>Club County </label>
                 <DropMenu defaultText="Select County" value={county} getValue={getValue} content={counties} id="clubcounty" />
-                <label>Club City </label>
+                <label>City of Club </label>
                 <input value={city} onChange={(e) => setCity(e.target.value)} type="text" id="clubcity" />
-                <label>Club Name </label>
+                <label>Name of Club </label>
                 <input value={name} onChange={(e) => setName(e.target.value)} type="text" id="clubname" />
+                <label> Club's Email </label>
+                <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" id="clubemail" />
+                <label>Phone Number </label>
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="text" id="clubphone" />
                 <div className="buttons">
                 <button className="club-input-button" onClick={handleSearch}>Search</button>
                 <button className="club-input-button" onClick={handleAdd}>Add</button>
@@ -150,7 +162,7 @@ const Clubs = () => {
             </div>
             <div className="results">
             <div className="results-header"> <h3>Clubs</h3></div>
-                { clubs.map((club) => <Club handleModify={handleModify} handleDelete={handleDelete}clubname={club.name} clubcity={club.city} clubcounty={club.county} key={club._id} id={club._id}/>)}
+                { clubs.map((club) => <Club handleModify={handleModify} handleDelete={handleDelete}clubname={club.name} clubcity={club.city} clubcounty={club.county} clubphone={club.phone} clubemail={club.email} key={club._id} id={club._id}/>)}
                
             </div>
         </div>

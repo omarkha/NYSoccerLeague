@@ -1,8 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
-const leagueController = require('./controllers/leagueControllers.js');
-const { League, Club, Player } = require('./models');
 const morgan = require('morgan');
 const res = require('express/lib/response');
 const path = require("path");

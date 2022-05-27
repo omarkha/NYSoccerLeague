@@ -262,8 +262,7 @@ const Players = () => {
                     <input value={age} onChange={(e) => setAge(e.target.value)} type="text" />
                     <label> City </label>
                     <input value={city} onChange={(e) => setCity(e.target.value)} type="text"  />
-                    <button onClick={handleSearch}>Search</button>
-                    <button onClick={handleAdd}>Add</button>
+                    
                 </div>
                 <div className="input-area-2">
                     <label> Position </label>
@@ -278,9 +277,14 @@ const Players = () => {
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="text"  />
                     <label> Phone </label>
                     <input value={phone} onChange={(e) => setPhone(e.target.value)} type="text" />
+                </div>
+                <div className="pl-buttons">
+                <button onClick={handleSearch}>Search</button>
                     <button onClick={handleUpdate}>Update</button>
-            </div>
+                    <button onClick={handleAdd}>Add</button>
+                </div>
         </div>
+            
         <div className="results">
         <div className="results-header"> <h3>Players</h3></div>
             { players.map(e => ( <Player handleDelete={handleDelete} handleModify={handleModify} key={e._id} id={e._id} firstname={e.firstname} lastname={e.lastname} age={e.age} club={e.club} position={e.position} height={e.height} weight={e.weight} county={e.county} city={e.city} phone={e.phone} email={e.email} foot={e.foot}/> )) }

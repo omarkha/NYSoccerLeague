@@ -110,8 +110,10 @@ footer p {
 
 .home img {
 	border-radius: 21px;
-	margin: 55px;
+	margin: 89px;
 	filter: saturate(0.5);
+	z-index: 1;
+	overflow: hidden;
 }
 
 p {
@@ -145,12 +147,13 @@ input[type="text"]:focus {
 	opacity: 1;
 }
 select {
+	position:relative;
 	display: block;
 	margin: 5px auto;
 	width: 241px;
 	height: 25px;
-	text-align: center;
 	opacity: 0.62;
+	text-align: center;
 	font-family:  Exo 2;
 	letter-spacing: 3px;
 	color: #fff;
@@ -158,11 +161,10 @@ select {
 	border: 1px solid rgb(101, 160, 25);
 	border-radius: 13px;
 }
-select:hover {
-	opacity: 1;
-}
-select:focus {
-	opacity: 1;
+
+option {
+	position: relative;
+	z-index: 1;
 }
 .logo {
 	background-color: rgb(235, 220, 235);
@@ -186,11 +188,12 @@ nav {
 }
 
 .link {
-	display: inline;
-	margin: 0 34px 0 34px;
+	position:relative;
+	margin: 0 21px 0 21px;
 	color: rgb(215, 215, 215);
 	font-weight: bold;
 	letter-spacing: 3px;
+	z-index: 2;
 }
 .link:hover {
 	color: #fff;
@@ -239,10 +242,13 @@ h3 {
 }
 
 .input-area {
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: minmax(100px, auto);
+	justify-items: stretch;
 	width: 50%;
 	padding: 21px 13px 21px 13px;
-	column-gap: 10px;
+	grid-gap: 10px;
 }
 
 h4 {
@@ -302,4 +308,116 @@ span {
 .club-input {
 	margin-top:34px;
 	width: 50%;
+}
+
+nav {
+	position: relative;
+	z-index: 1000;
+}
+
+.dropmenu {
+	position:absolute;
+	top:34px;
+	right:713px;
+	z-index: 100;
+}
+
+
+li {
+	display: inline;
+	margin:0 auto;
+	padding:13px;
+	position: relative;
+}
+
+li:hover {
+	
+	transition-property:  border-bottom;
+	transition-duration: 0.23s;
+}
+
+.dropmenu li {
+	position: relative;
+	background-color: rgb(20, 25, 20);
+	border: 1px solid rgb(20, 35, 20);
+	display: block;
+	margin: 0 auto;
+	z-index: 100;
+}
+
+.dropmenu li:hover, .dropmenu li:last-child:hover, .dropmenu li:first-child:hover {
+	position: relative;
+	background-color: rgb(20, 20, 20);
+
+}
+
+.dropmenu li:first-child {
+	position: relative;
+	background-color: rgb(20, 25, 20);
+	border-top: 0;
+	display: block;
+	margin: 0 auto;
+	z-index: 100;
+	
+}
+
+.dropmenu li:last-child {
+	position: relative;
+	background-color: rgb(20, 25, 20);
+	border-bottom-left-radius: 21px;
+	border-bottom-right-radius: 21px;
+	border: 1px solid rgb(20, 35, 20);
+	display: block;
+	margin: 0 auto;
+	z-index: 100;
+}
+
+ul {
+	
+	text-align: left;
+	margin: 0 auto;
+	
+}
+
+.dropmenu ul {
+	position: relative;
+	text-align: center;
+	margin: 0 auto;
+	z-index: 100%;
+}
+
+.news {
+	background-color: #000;
+	height:233px;
+	display:flex;
+	flex-direction: rows;
+	border-top:5px solid #fff;
+	border-bottom: 5px solid #fff;
+	
+}
+.news div  {
+	background-color: rgb(10, 25, 10);
+	margin: 3px;
+}
+
+.news div h3 {
+	font-size: 18px;
+	letter-spacing: 0;
+	margin:13px;
+}
+.news div p {
+	font-size: 13px;
+	letter-spacing: 1px;
+	margin:13px;
+	line-height:21px;
+}
+
+h2 {
+	color: rgb(235, 220, 235)	
+}
+
+.pl-buttons {
+	grid-column: 1/3;
+	display: inline;
+	width: 100%;
 }

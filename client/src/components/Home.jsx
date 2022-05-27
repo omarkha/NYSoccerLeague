@@ -1,11 +1,13 @@
 import React from "react";
 import Images from "../images/index.js";
+import News from "./News.jsx";
 
 const Home = () => {
 
     return (
         <div className="home">
-
+            <h2>News Reports</h2>
+            <News />
             <img src={ Images.soccerMatch } alt="soccer game" />
             <h3>
                 Start Your Journey Towards a Professional Soccer Career!

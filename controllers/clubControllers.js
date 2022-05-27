@@ -41,6 +41,8 @@ const findByCityAndName = ('/clubs/city&name/:city/:name', async (req, res) => {
         club.city = req.body.city
         club.league = req.body.league
         club.county = req.body.county
+        club.email = req.body.email
+        club.phone = req.body.phone
 
         club.save()
         .then((result) => {
@@ -91,6 +93,8 @@ const updateById = ('/clubs/update/:id', (req, res) => {
     const newCity = req.body.newCity;
     const newCounty = req.body.newCounty;
     const newLeague = req.body.newLeague + " ASL";
+    const newEmail = req.body.email;
+    const newPhone = req.body.phone;
     const id = req.params.id;
   
   try{
@@ -99,6 +103,8 @@ const updateById = ('/clubs/update/:id', (req, res) => {
       newClub.city = newCity;
       newClub.league = newLeague;
       newClub.county = newCounty;
+      newClub.phone = newPhone;
+      newClub.email = newEmail;
       newClub.save();
       res.send("updated");
     })

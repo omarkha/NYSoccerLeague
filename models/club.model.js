@@ -6,8 +6,10 @@ const Schema = mongoose.Schema;
 const clubSchema = new Schema({
     name: {type: String, required: true, unique: true},
     county: {type: String, required: true},
-    city: {type: String, required: true},
+    city: {type: String, required: true, unique: true},
     league: {type: String, ref: "League"},
+    email: {type: String},
+    phone: {type: String}
 
 }, {timestamps: true});
 
