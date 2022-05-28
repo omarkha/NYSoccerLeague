@@ -226,7 +226,7 @@ a:hover {
 	background-color: rgb(25, 101, 255);
 }
 
-.result-div img {
+.result-club-div img {
 	margin: 8px 0 0 21px;
 	border-radius: 13px;
 	width: 144px;
@@ -236,10 +236,13 @@ a:hover {
 
 .filepicker-div {
 	margin:34px;
+	
 }
+
 
 input[type="file"] {
 	display: none;
+	height: 21px;
 	width: 144px;
 }
 button {
@@ -309,6 +312,15 @@ h4 {
 }
 
 .result {
+	background-color: rgb(10, 25, 10);
+	opacity: 0.9;
+	width: 90%;
+	margin: 8px auto;
+	padding: 8px 0 8px 0;
+	border-radius: 21px;
+	border: 1px solid rgb(97, 160, 40);
+}
+.result-club{
 	background-color: rgb(10, 25, 10);
 	opacity: 0.9;
 	width: 90%;

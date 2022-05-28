@@ -2,10 +2,10 @@ import React from "react";
 
 const Club = ({handleDelete, handleModify, clubname, clubcounty, clubcity, clubemail, clubphone, cluburl, id}) => {
     return (
-        <div className="result">
+        <div className="result-club">
 
-            <div className="result-div">
-                <img src={cluburl} alt={clubname} key={'img'+id}/>
+            <div className="result-club-div">
+                <img className="clublogo" src={cluburl} alt={clubname} key={'img'+id}/>
             </div>
                 
 

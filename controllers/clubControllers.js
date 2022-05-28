@@ -43,7 +43,7 @@ const findByCityAndName = ('/clubs/city&name/:city/:name', async (req, res) => {
         club.county = req.body.county
         club.email = req.body.email
         club.phone = req.body.phone
-        club.img_url = req.params.img_url
+        club.img_url = req.body.img_url
 
         club.save()
         .then((result) => {

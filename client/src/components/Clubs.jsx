@@ -90,7 +90,6 @@ const Clubs = () => {
             })
             .catch(err => console.log("Err: ", err))
         }
-        
         setCounty('Select County');
         setName('');
         setCity('');
@@ -103,37 +102,43 @@ const Clubs = () => {
         setCounty(value);
     }
 
-    const postImage = async (e) => {
+    const postImage = async () => {
         const reader = new FormData();
-        reader.append('file',e)
+        reader.append('file',file)
         reader.append('upload_preset', 'soccerleague');
         try{
-        const res = await axios.post(CLOUDINARY_URL, reader)
-        const img = await res.data.url;
-        setUrl(img);
+            const res = await axios.post(CLOUDINARY_URL, reader)
+            
+            console.log(res.data.url);
+            setUrl(res.data.url);
+            setImage(res.data.url);
+            
         }catch(err){
             console.log(err);
         }
+
+        handleAdd();
+
     }
     
        
     const handleAdd = () => {
 
-        postImage();
 
-                 setData({name: name, county: county, city: city, email: email, phone: phone, img_url: url});
-        const club = {
-            'name': name,
-            'county': county,
-            'city': city,
-            'league': county+" ASL",
-            'email': email,
-            'phone': phone,
-            'img_url': url
+
+                 setData({name: name, county: county, city: city, email: email, phone: phone, img_url: image});
+        const xclub = {
+            name: name,
+            county: county,
+            city: city,
+            league: county+" ASL",
+            email: email,
+            phone: phone,
+            img_url: image,
         };
 
-        console.log(data);
-        axios.post(`${base}/clubs`, club)
+        console.log(xclub);
+        axios.post(`${base}/clubs`, xclub)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
              
@@ -188,7 +193,7 @@ const Clubs = () => {
 
                         <label class="filepicker">
                      <input type="file" name="img_url" onChange={(e) => {
-                         postImage(e.target.files[0])
+                         setFile(e.target.files[0])
                         
                      }} />
                     Upload Logo
@@ -200,7 +205,7 @@ const Clubs = () => {
                 <div className="buttons">
                 <button className="club-input-button" onClick={handleSearch}>Search</button>
                 <button className="club-input-button" onClick={handleUpdate}>Update</button>
-                <button className="club-input-button" onClick={handleAdd}>Add</button>
+                <button className="club-input-button" onClick={postImage}>Add</button>
                 </div>
             </div>
             <div className="results">
