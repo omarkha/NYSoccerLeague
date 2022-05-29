@@ -96,6 +96,7 @@ const Clubs = () => {
         setPhone('');
         setEmail('');
         setImage('');
+        setUrl('');
     }
 
     const getValue = (value, id) =>{
@@ -108,17 +109,18 @@ const Clubs = () => {
         reader.append('upload_preset', 'soccerleague');
         try{
             const res = await axios.post(CLOUDINARY_URL, reader)
-            
+            .then((result) => {
+                console.log(result)
+            })
+
             console.log(res.data.url);
             setUrl(res.data.url);
-            setImage(res.data.url);
+            
             
         }catch(err){
             console.log(err);
-        }
-
-        handleAdd();
-
+        
+    }
     }
     
        
@@ -126,7 +128,7 @@ const Clubs = () => {
 
 
 
-                 setData({name: name, county: county, city: city, email: email, phone: phone, img_url: image});
+                 setData({name: name, county: county, city: city, email: email, phone: phone, img_url: url});
         const xclub = {
             name: name,
             county: county,
@@ -134,11 +136,11 @@ const Clubs = () => {
             league: county+" ASL",
             email: email,
             phone: phone,
-            img_url: image,
+            img_url: url,
         };
 
-        console.log(xclub);
-        axios.post(`${base}/clubs`, xclub)
+        console.log(data);
+        axios.post(`${base}/clubs/post`, xclub)
         .then(res => console.log(res.data))
         .catch(err => console.log(err))
              
@@ -192,9 +194,9 @@ const Clubs = () => {
                 <div class="filepicker-div">
 
                         <label class="filepicker">
-                     <input type="file" name="img_url" onChange={(e) => {
+                     <input type="file" name="img_url" onChange={(e) => { 
                          setFile(e.target.files[0])
-                        
+                        postImage();
                      }} />
                     Upload Logo
                     

@@ -14,7 +14,7 @@ const clubSchema = new Schema({
     
 
 }, {timestamps: true});
-
+s
 const Club = mongoose.model('Club', clubSchema);
 
 
