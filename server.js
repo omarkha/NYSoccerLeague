@@ -47,31 +47,31 @@ const db = mongoose.connection;
 
 app.get('/api/images', async (req, res) => {
   const { resources } = await cloudinary.search.expression('folder:soccerleague')
-  .sort_by('public_id', 'desc')
-  .max_results(30)
-  .execute();
-  const publicIds = resources.map( file => file.public_id) 
+    .sort_by('public_id', 'desc')
+    .max_results(30)
+    .execute();
+  const publicIds = resources.map(file => file.public_id)
 })
 
 const cloudinary = require('cloudinary');
 cloudinary.config(
-    {
-        cloud_name: process.env.CLOUDINARY_NAME,
-        api_key: process.env.CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET
-    }
+  {
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  }
 )
 app.post('/api/upload', async (req, res) => {
-  try{
-      const fileStr = req.body.data;
-      const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-        upload_preset: 'soccerleague'
-      })
-      console.log(uploadedResponse)
-      res.json({msg: "gucci"})
+  try {
+    const fileStr = req.body.data;
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: 'soccerleague'
+    })
+    console.log(uploadedResponse)
+    res.json({ msg: "gucci" })
 
-  }catch(err){
-      console.log(err);
+  } catch (err) {
+    console.log(err);
   }
 
 })
@@ -79,7 +79,7 @@ app.post('/api/upload', async (req, res) => {
 
 app.get('/*', (req, res) => {
   res.sendFile(`${__dirname}/client/build/index.html`)
- })
+})
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
