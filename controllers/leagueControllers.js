@@ -1,7 +1,7 @@
 const league = require('../models/league.model');
 
 
-const getLeagues = ('/leagues', async  (req, res) => {
+const getLeagues = async  (req, res) => {
     
     try{
       const lig = await league.find()
@@ -9,10 +9,10 @@ const getLeagues = ('/leagues', async  (req, res) => {
     }catch(err){
       res.send("err " + err);
     }
-});
+};
 
 
-const postLeague = ('/leagues', (req, res) => {
+const postLeague = (req, res) => {
 
     const lig = new league(req.body);
   
@@ -21,9 +21,9 @@ const postLeague = ('/leagues', (req, res) => {
       console.log("league added!");
     })
     .catch(err => console.log("error: ", err))
-  });
+  };
 
-const findByCounty = ('/leagues/findone/:county', async (req, res) => {
+const findByCounty = async (req, res) => {
   
     try {
       const county_encode = req.params.county;
@@ -36,10 +36,10 @@ const findByCounty = ('/leagues/findone/:county', async (req, res) => {
       console.log(e)
       res.send('county not found!')
     }
-  })
+  }
 
   
-const deleteById = ('/leagues/:id', async (req, res) => {
+const deleteById = async (req, res) => {
     try {
   
       const id = req.params.id;
@@ -50,7 +50,7 @@ const deleteById = ('/leagues/:id', async (req, res) => {
       console.log(e)
       res.send('county not found!')
     }
-  })
+  }
   
   module.exports = {
     getLeagues, postLeague, deleteById, findByCounty
