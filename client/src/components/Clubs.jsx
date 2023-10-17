@@ -19,7 +19,7 @@ const Clubs = () => {
         }
     );
 
-    const base = "https://soccerleagues.herokuapp.com";
+    const base = "https://soccerleagues.onrender.com";
 
     const [name, setName] = useState('');
     const [county, setCounty] = useState('Select County');
