@@ -76,7 +76,7 @@ const Leagues = () => {
 
     const [leagues, setLeagues] = useState([]);
     
-        const base = "https://soccerleagues.herokuapp.com";
+        const base = "https://soccerleagues.onrender.com";
 
     let returned = [];
 
