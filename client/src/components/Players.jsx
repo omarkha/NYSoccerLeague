@@ -32,7 +32,7 @@ const Players = () => {
         const [leagues, setLeagues] = useState([]);
         const [players, setPlayers] = useState([]);
    
-        const base = "https://soccerleagues.herokuapp.com";
+        const base = "https://soccerleagues.onrender.com";
 
         const [data, setData] = useState({
             firstname: '',
